@@ -1,659 +1,676 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-	<meta charset="utf-8">
-	<link href="imagrs/logoo.png" rel="icon" style="width: 50px; height: 60px" />
-	<title> Senegal Academy </title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<!-- Bootstrap core CSS -->
-	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Fontawesome CSS -->
-	<link href="css/all.css" rel="stylesheet">
-	<!-- Owl Carousel CSS -->
-	<link href="css/owl.carousel.min.css" rel="stylesheet">
-	<!-- Owl Carousel CSS -->
-	<link href="css/jquery.fancybox.min.css" rel="stylesheet">
-	<!-- Custom styles for this template -->
-	<link href="css/style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maison Digitale</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #fafafa;
+      color: #1e1e1e;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* couleurs : orange & noir */
+    :root {
+      --orange: #f97316;      /* orange vif moderne */
+      --orange-dark: #ea580c;
+      --black: #0a0a0a;
+      --gray-dark: #171717;
+      --gray-light: #f5f5f5;
+      --white: #ffffff;
+      --shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* --- HEADER --- */
+    header {
+      background-color: var(--black);
+      color: white;
+      padding: 1.2rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--orange);
+    }
+
+    .header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .logo span {
+      color: var(--orange);
+    }
+    .logo .digit {
+      font-weight: 300;
+      color: white;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s;
+      font-size: 1.1rem;
+    }
+    nav a:hover {
+      color: var(--orange);
+      border-bottom: 2px solid var(--orange);
+      padding-bottom: 0.2rem;
+    }
+
+    /* --- BOUTON WHATSAPP FLOTTANT HORIZONTAL FIXE (bas à droite) --- */
+    .wa-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #25D366;  /* vert WhatsApp original */
+      color: white;
+      padding: 0.9rem 2rem 0.9rem 1.8rem;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      z-index: 999;
+      transition: 0.2s;
+      border: 2px solid white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      backdrop-filter: blur(2px);
+    }
+    .wa-float i {
+      font-size: 2rem;
+    }
+    .wa-float:hover {
+      background-color: #20b859;
+      transform: scale(1.05);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+    }
+
+    /* --- HERO avec illustration par IMAGE (plus d'illustrations) --- */
+    .hero {
+      background: linear-gradient(135deg, var(--black) 0%, #1f1f1f 100%);
+      color: white;
+      padding: 4rem 0;
+      border-bottom: 5px solid var(--orange);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero h2 {
+      font-size: 3.3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+    .hero h2 span {
+      color: var(--orange);
+      border-bottom: 4px solid var(--orange);
+      display: inline-block;
+      padding-bottom: 0.2rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #d4d4d4;
+      margin-bottom: 2.5rem;
+      max-width: 90%;
+    }
+
+    .btn-orange {
+      background-color: var(--orange);
+      color: var(--black);
+      font-weight: 700;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 1.2rem;
+      border: 2px solid transparent;
+      transition: 0.25s;
+      box-shadow: 0 8px 18px rgba(249, 115, 22, 0.3);
+    }
+    .btn-orange:hover {
+      background-color: transparent;
+      border: 2px solid var(--orange);
+      color: var(--orange);
+    }
+
+    .hero-illustration {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-illustration img {
+      max-width: 100%;
+      height: auto;
+      filter: drop-shadow(0 20px 25px #00000060);
+      border-radius: 20px;
+    }
+
+    /* --- SERVICES (création de plateformes digitales + ILLUSTRATIONS IMAGES) --- */
+    .services {
+      padding: 5rem 0;
+      background: white;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+      border-left: 10px solid var(--orange);
+      padding-left: 1.5rem;
+    }
+    .section-title span {
+      color: var(--orange);
+    }
+
+    .service-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+    .card {
+      background: var(--gray-light);
+      border-radius: 30px;
+      padding: 2.2rem 1.8rem;
+      transition: 0.2s ease;
+      border: 2px solid transparent;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+      text-align: center;
+    }
+    .card:hover {
+      border-color: var(--orange);
+      transform: translateY(-10px);
+      box-shadow: var(--shadow);
+    }
+    .card .card-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 1.3rem;
+      border: 3px solid var(--orange);
+    }
+    .card h3 {
+      font-size: 1.7rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    .card p {
+      color: #2e2e2e;
+    }
+
+    /* --- FORMATION (bureautique & dev) avec IMAGES --- */
+    .formation {
+      background: var(--gray-dark);
+      color: white;
+      padding: 5rem 0;
+    }
+    .formation .section-title {
+      color: white;
+      border-left-color: var(--orange);
+    }
+    .flex-formation {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      justify-content: center;
+    }
+    .formation-block {
+      background: #232323;
+      border-radius: 40px;
+      padding: 2.5rem;
+      flex: 1 1 300px;
+      border-bottom: 6px solid var(--orange);
+    }
+    .formation-block img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 25px;
+      margin-bottom: 1.5rem;
+      border: 3px solid var(--orange);
+    }
+    .formation-block h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .formation-block ul {
+      list-style: none;
+    }
+    .formation-block li {
+      margin: 1rem 0;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .formation-block li i {
+      font-size: 1.5rem;
+      color: var(--orange);
+    }
+
+    /* --- MAINTENANCE & GESTION SITES avec IMAGES --- */
+    .maintenance-web {
+      padding: 5rem 0;
+      background: white;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .mainten-card {
+      background: var(--black);
+      color: white;
+      border-radius: 40px;
+      padding: 2.8rem;
+      transition: 0.2s;
+      border: 2px solid var(--orange);
+    }
+    .mainten-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 25px;
+      margin-bottom: 1.5rem;
+      border: 3px solid var(--orange);
+    }
+    .mainten-card h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .mainten-card p {
+      margin: 1.5rem 0;
+      opacity: 0.9;
+    }
+    .badge {
+      background: var(--orange);
+      color: black;
+      font-weight: bold;
+      padding: 0.5rem 1.5rem;
+      border-radius: 60px;
+      display: inline-block;
+    }
+
+    .gest-card {
+      background: white;
+      border: 3px solid var(--black);
+      border-radius: 40px;
+      padding: 2.8rem;
+      box-shadow: var(--shadow);
+    }
+    .gest-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 25px;
+      margin-bottom: 1.5rem;
+      border: 3px solid var(--orange);
+    }
+    .gest-card h3 {
+      font-size: 2rem;
+      margin: 1rem 0;
+    }
+
+    /* --- CONTENU SUPPLÉMENTAIRE : TÉMOIGNAGES & STATISTIQUES (plus de contenu) --- */
+    .extra-content {
+      background: linear-gradient(145deg, #0c0c0c 0%, #1a1a1a 100%);
+      color: white;
+      padding: 5rem 0;
+      border-top: 5px solid var(--orange);
+      border-bottom: 5px solid var(--orange);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+    .stat-item {
+      background: rgba(249, 115, 22, 0.1);
+      padding: 2rem 1rem;
+      border-radius: 30px;
+      border: 1px solid var(--orange);
+    }
+    .stat-item i {
+      font-size: 3rem;
+      color: var(--orange);
+      margin-bottom: 1rem;
+    }
+    .stat-item h4 {
+      font-size: 2.5rem;
+      font-weight: 800;
+    }
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .testimonial-card {
+      background: #232323;
+      border-radius: 40px;
+      padding: 2rem;
+      border-left: 8px solid var(--orange);
+    }
+    .testimonial-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--orange);
+      margin-bottom: 1rem;
+    }
+    .testimonial-card p {
+      font-style: italic;
+      margin: 1rem 0;
+    }
+    .testimonial-card h5 {
+      color: var(--orange);
+      font-size: 1.2rem;
+    }
+
+    /* --- PIED DE PAGE --- */
+    footer {
+      background: var(--black);
+      color: white;
+      padding: 2.5rem 0;
+      border-top: 5px solid var(--orange);
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0 0;
+    }
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .footer-links a:hover {
+      color: var(--orange);
+    }
+
+    /* --- petits ajustements responsives --- */
+    @media (max-width: 800px) {
+      .hero-grid, .grid-2, .stats-grid, .testimonials {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero p {
+        max-width: 100%;
+      }
+      .header-flex {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      nav ul {
+        gap: 1.2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .wa-float {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        right: 20px;
+        bottom: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="wrapper-main">
-	<!-- Top Bar -->
-	<div class="top-bar">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="social-media">
-						<ul>
-							<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fas fa-envelope"></i></a></li>
-							<li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-							<li><a href="#"><i class="fab fa-instagram"></i></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="contact-details">
-						<ul>
-							<li><i class="fas fa-phone fa-rotate-90"></i> +221 33 961 25 20</li>
-							<li><i class="fas fa-map-marker-alt"></i> Rue Hyane Sy, Ndioloféne Saint-Louis, Sénégal</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-light top-nav">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-				<img src="images/logoo.png" alt="logo" style="height: 90px; width: 120px;"/>
-            </a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="fas fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a class="nav-link active" href="index.html">Accueil</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="about.html">A Propos</a>
-					</li>
-					
-					<!--li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages <i class="fas fa-sort-down"></i></a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-							<a class="dropdown-item" href="faq.html">FAQ</a>
-							<a class="dropdown-item" href="404.html">404</a>
-							<a class="dropdown-item" href="pricing.html">Pricing Table</a>
-						</div>
-					</li-->
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Projets <i class="fas fa-sort-down"></i></a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-							<a class="dropdown-item" href="aea.php">Academy Ecole Aventure</a>
-							<a class="dropdown-item" href="asn.php">Academy Science Numerique</a>
-							<a class="dropdown-item" href="ace.php">Academy Challenge Entreprenariat</a>
 
-							<a class="dropdown-item" href="mwa.php">Meting Women Academy</a>
-							<a class="dropdown-item" href="ac.php">Academy Culture, Environnement, Sport et Santé</a>
-							<a class="dropdown-item" href="aced.php">Academy Concours, Epelle-moi et Débattons</a>
-							<a class="dropdown-item" href="af.php">Academy Formation</a>
-							<a class="dropdown-item" href="ai.php">International Studies Academy</a>
-							<a class="dropdown-item" href="#">SAIN'TIC</a>
-						</div>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="faq.html">FAQ</a>
-					</li>
-					<!--li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog <i class="fas fa-sort-down"></i></a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-							<a class="dropdown-item" href="blog.html">Blog</a>
-							<a class="dropdown-item" href="blog-post.html">Blog Post</a>
-						</div>
-					</li-->
-					<li class="nav-item">
-						<a class="nav-link" href="contact.html">Contact</a>
-					</li>
-				</ul>
-            </div>
-        </div>
-    </nav>
-	
-    <header class="slider-main">
-        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
-            <ol class="carousel-indicators">
-               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox">
-               <!-- Slide One - Set the background image for this slide in the line below -->
-               <div class="carousel-item active" style="background-image: url('images/ban.jpg')">
-                  <div class="carousel-caption d-none d-md-block">
-                     <h3>Bienvenue à Senegal Academy</h3>
-                     <p></p>
-                  </div>
-               </div>
-               <!-- Slide Two - Set the background image for this slide in the line below -->
-               <div class="carousel-item" style="background-image: url('images/ban.jpg')">
-                  <div class="carousel-caption d-none d-md-block">
-                     <h3>Bienvenue à Senegal Academy</h3>
-                     <p></p>
-                  </div>
-               </div>
-               <!-- Slide Three - Set the background image for this slide in the line below -->
-               <div class="carousel-item" style="background-image: url('images/ban.jpg')">
-                  <div class="carousel-caption d-none d-md-block">
-                     <h3>Bienvenue à Senegal Academy</h3>
-                     <p></p>
-                  </div>
-               </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-            </a>
-        </div>
-    </header>
-	
-    <!-- Page Content -->
-    <div class="container">        
-        <!-- About Section -->
-        <div class="about-main">
-            <div class="row">
-               <div class="col-lg-6">
-                  <h2>Bienvenue à Senegal Academy</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
-				  <h5>Our smart approach</h5>
-                  <ul>
-                     <li>Sed at tellus eu quam posuere mattis.</li>
-                     <li>Phasellus quis erat et enim laoreet posuere ac porttitor ipsum.</li>
-                     <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>                     
-                  </ul>
-               </div>
-               <div class="col-lg-6">
-                  <img class="img-fluid rounded" src="images/md7.jpg" alt="" />
-               </div>
-            </div>
-            <!-- /.row -->
-        </div>
-	</div>	
-	
-	<div class="services-bar">
-		<div class="container">
-			<h1 class="py-4">Nos Activités </h1>
-			<!-- Services Section -->
-			<div class="row">
-			   <div class="col-lg-4 mb-4">
-					<div class="card h-100">
-						<div class="card-img">
-							<img class="img-fluid" src="images/54.jpg" alt="" />
-						</div>
-						<div class="card-body">
-							<h4 class="card-header"> Formation </h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-						</div>
-					</div>
-			   </div>
-			   <div class="col-lg-4 mb-4">
-					<div class="card h-100">
-						<div class="card-img">
-							<img class="img-fluid" src="images/54.jpg" alt="" />
-						</div>
-						<div class="card-body">
-							<h4 class="card-header"> Accompagnement </h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-						</div>
-					</div>
-			   </div>
-			   <div class="col-lg-4 mb-4">
-					<div class="card h-100">
-						<div class="card-img">
-							<img class="img-fluid" src="images/54.jpg" alt="" />
-						</div>
-						<div class="card-body">
-							<h4 class="card-header"> Financement </h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-						</div>
-					</div>
-			   </div>
-			   <div class="col-lg-4 mb-4">
-					<div class="card h-100">
-						<div class="card-img">
-							<img class="img-fluid" src="images/54.jpg" alt="" />
-						</div>
-						<div class="card-body">
-							<h4 class="card-header"> Consultation </h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-						</div>						
-					</div>
-			   </div>
-			   <div class="col-lg-4 mb-4">
-					<div class="card h-100">
-						<div class="card-img">
-							<img class="img-fluid" src="images/54.jpg" alt="" />
-						</div>
-						<div class="card-body">
-							<h4 class="card-header"> Consultation </h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-						</div>						
-					</div>
-			   </div>
-			   <div class="col-lg-4 mb-4">
-					<div class="card h-100">
-						<div class="card-img">
-							<img class="img-fluid" src="images/54.jpg" alt="" />
-						</div>
-						<div class="card-body">
-							<h4 class="card-header"> Autres </h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-						</div>
-					</div>
-			   </div>
-			</div>
-			<!-- /.row -->
-		</div>
-	</div>
-		
-	<div class="container">
-        <!-- Portfolio Section -->
-        <div class="portfolio-main">
-            <h2>Albums de Senegal Academy</h2>
-			<div class="col-lg-12">
-				<div class="project-menu text-center">
-					<button class="btn btn-primary active" data-filter="*">All</button>
-					<button data-filter=".business" class="btn btn-primary">Business</button>
-					<button data-filter=".travel" class="btn btn-primary">Travel</button>
-					<button data-filter=".financial" class="btn btn-primary">Financial</button>
-					<button data-filter=".academic" class="btn btn-primary">Academic</button>
-				</div>
-			</div>
-            <div id="projects" class="projects-main row">
-               <div class="col-lg-4 col-sm-6 pro-item portfolio-item financial">
-                  <div class="card h-100">
-                     <div class="card-img">
-                        <a href="images/services-img-06.jpg" data-fancybox="images">
-                           <img class="card-img-top" src="images/services-img-06.jpg" alt="" />
-                           <div class="overlay"><i class="fas fa-arrows-alt"></i></div>
-                        </a>
-                     </div>
-                     <div class="card-body">
-                        <h4 class="card-title">
-                           <a href="#"></a>
-                        </h4>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-4 col-sm-6 pro-item portfolio-item business academic">
-                  <div class="card h-100">
-                     <div class="card-img">
-                        <a href="images/services-img-06.jpg" data-fancybox="images">
-                           <img class="card-img-top" src="images/services-img-06.jpg" alt="" />
-                           <div class="overlay"><i class="fas fa-arrows-alt"></i></div>
-                        </a>
-                     </div>
-                     <div class="card-body">
-                        <h4 class="card-title">
-                           <a href="#"></a>
-                        </h4>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-4 col-sm-6 pro-item portfolio-item travel">
-                  <div class="card h-100">
-                     <div class="card-img">
-                        <a href="images/services-img-06.jpg" data-fancybox="images">
-                           <img class="card-img-top" src="images/services-img-06.jpg" alt="" />
-                           <div class="overlay"><i class="fas fa-arrows-alt"></i></div>
-                        </a>
-                     </div>
-                     <div class="card-body">
-                        <h4 class="card-title">
-                           <a href="#"></a>
-                        </h4>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-4 col-sm-6 pro-item portfolio-item business">
-                  <div class="card h-100">
-                     <div class="card-img">
-                        <a href="images/services-img-06.jpg" data-fancybox="images">
-                           <img class="card-img-top" src="images/services-img-06.jpg" alt="" />
-                           <div class="overlay"><i class="fas fa-arrows-alt"></i></div>
-                        </a>
-                     </div>
-                     <div class="card-body">
-                        <h4 class="card-title">
-                           <a href="#"></a>
-                        </h4>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-4 col-sm-6 pro-item portfolio-item travel">
-                  <div class="card h-100">
-                     <div class="card-img">
-                        <a href="images/services-img-06.jpg" data-fancybox="images">
-                           <img class="card-img-top" src="images/services-img-06.jpg" alt="" />
-                           <div class="overlay"><i class="fas fa-arrows-alt"></i></div>
-                        </a>
-                     </div>
-                     <div class="card-body">
-                        <h4 class="card-title">
-                           <a href="#"></a>
-                        </h4>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-4 col-sm-6 pro-item portfolio-item financial academic">
-                  <div class="card h-100">
-                     <div class="card-img">
-                        <a href="images/services-img-06.jpg" data-fancybox="images">
-                           <img class="card-img-top" src="images/services-img-06.jpg" alt="" />
-                           <div class="overlay"><i class="fas fa-arrows-alt"></i></div>
-                        </a>
-                     </div>
-                     <div class="card-body">
-                        <h4 class="card-title">
-                           <a href="#"></a>
-                        </h4>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <!-- /.row -->
-        </div>
+<!-- HEADER orange & noir -->
+<header>
+  <div class="container header-flex">
+    <div class="logo">
+      <h1>Maison<span>Digitale</span> <span class="digit">◢</span></h1>
     </div>
-	
-	<div class="blog-slide">
-		<div class="container">
-			<h2>Equipes de Senegal Academy</h2>
-			<div class="row">
-				<div class="col-lg-12">
-					<div id="blog-slider" class="owl-carousel">
-						<div class="post-slide">
-							<!--div class="post-header">
-								<h4 class="title">
-									<a href="#">Latest blog Post</a>
-								</h4>
-								<ul class="post-bar">
-									<li><img src="images/testi_01.png" alt=""><a href="#">Williamson</a></li>
-									<li><i class="fa fa-calendar"></i>02 June 2018</li>
-								</ul>
-							</div-->
-							<div class="pic">
-								<img src="images/54.jpg" alt="">
-								<ul class="post-category">
-									<li><a href="#">Mr Abdou Rahmane Sarr</a></li>
-									<li><a href="#">DEF</a></li>
-								</ul>
-							</div>
-							<p class="post-description">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas gravida nulla eu massa efficitur, eu hendrerit ipsum efficitur. Morbi vitae velit ac.
-							</p>
-						</div>
-		 
-						<div class="post-slide">
-							<!--div class="post-header">
-								<h4 class="title">
-									<a href="#">Latest blog Post</a>
-								</h4>
-								<ul class="post-bar">
-									<li><img src="images/testi_02.png" alt=""><a href="#">Kristiana</a></li>
-									<li><i class="fa fa-calendar"></i>05 June 2018</li>
-								</ul>
-							</div-->
-							<div class="pic">
-								<img src="images/54.jpg" alt="">
-								<ul class="post-category">
-									<li><a href="#">Mr Sarr</a></li>
-									<li><a href="#">Comptable</a></li>
-								</ul>
-							</div>
-							<p class="post-description">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas gravida nulla eu massa efficitur, eu hendrerit ipsum efficitur. Morbi vitae velit ac.
-							</p>
-						</div>
-						
-						<div class="post-slide">
-							<!--div class="post-header">
-								<h4 class="title">
-									<a href="#">Latest blog Post</a>
-								</h4>
-								<ul class="post-bar">
-									<li><img src="images/testi_01.png" alt=""><a href="#">Kristiana</a></li>
-									<li><i class="fa fa-calendar"></i>05 June 2018</li>
-								</ul>
-							</div-->
-							<div class="pic">
-								<img src="images/54.jpg" alt="">
-								<ul class="post-category">
-									<li><a href="#">Mme Diop</a></li>
-									<li><a href="#">DAF</a></li>
-								</ul>
-							</div>
-							<p class="post-description">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas gravida nulla eu massa efficitur, eu hendrerit ipsum efficitur. Morbi vitae velit ac.
-							</p>
-						</div>
-						
-						<div class="post-slide">
-							<!--div class="post-header">
-								<h4 class="title">
-									<a href="#">Latest blog Post</a>
-								</h4>
-								<ul class="post-bar">
-									<li><img src="images/testi_02.png" alt=""><a href="#">Kristiana</a></li>
-									<li><i class="fa fa-calendar"></i>05 June 2018</li>
-								</ul>
-							</div-->
-							<div class="pic">
-								<img src="images/54.jpg" alt="">
-								<ul class="post-category">
-									<li><a href="#">Mr Ndiadé</a></li>
-									<li><a href="#">DIT</a></li>
-								</ul>
-							</div>
-							<p class="post-description">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas gravida nulla eu massa efficitur, eu hendrerit ipsum efficitur. Morbi vitae velit ac.
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div><br>
-	
-	
-	<!-- Contact Us >
-	<div class="touch-line">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8">
-				   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, expedita, saepe, vero rerum deleniti beatae veniam harum neque nemo praesentium cum alias asperiores commodi.</p>
-				</div>
-				<div class="col-md-4">
-				   <a class="btn btn-lg btn-secondary btn-block" href="#"> Contact Us </a>
-				</div>
-			</div>
-		</div>
-	</div -->
-	
-    <!-- /.container -->
-    <!--footer starts from here-->
-    <footer class="footer" style="background: #011b11; opacity: 80%;">
-        <div class="container bottom_border">
-            <div class="row">
-				<div class="col-lg-4 col-md-6 col-sm-6 col">
-					<h5 class="headin5_amrc col_white_amrc pt2">Rue Hyane Sy,Ndioloféne Saint-Louis, Sénégal</h5>
-					<!--headin5_amrc-->
-					<!--p class="mb10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p-->
-					
-				</div>	
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<h5 class="headin5_amrc col_white_amrc pt2">+221 33 951 25 20</h5>
-					<!--headin5_amrc-->
-					<!--ul class="footer_ul_amrc">
-						<li><a href="#"><i class="fas fa-long-arrow-alt-right"></i>Default Version</a></li>
-						<li><a href="#"><i class="fas fa-long-arrow-alt-right"></i>Boxed Version</a></li>
-						<li><a href="#"><i class="fas fa-long-arrow-alt-right"></i>Our Team </a></li>
-						<li><a href="#"><i class="fas fa-long-arrow-alt-right"></i>About Us</a></li>
-						<li><a href="#"><i class="fas fa-long-arrow-alt-right"></i>Our Services</a></li>
-						<li><a href="#"><i class="fas fa-long-arrow-alt-right"></i>Get In Touch</a></li>
-					</ul-->
-					<!--footer_ul_amrc ends here-->
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6 col">
-					<h5 class="headin5_amrc col_white_amrc pt2">contact.senegalacademy@gmail.com</h5>
-					<!--headin5_amrc ends here-->
-					<!--ul class="footer_ul2_amrc">
-						<li>
-							<a href="#"><i class="fab fa-twitter fleft padding-right"></i> </a>
-							<p>Lorem Ipsum is simply dummy...<a href="#">https://www.lipsum.com/</a></p>
-						</li>
-						<li>
-							<a href="#"><i class="fab fa-twitter fleft padding-right"></i> </a>
-							<p>Lorem Ipsum is simply dummy...<a href="#">https://www.lipsum.com/</a></p>
-						</li>
-						<li>
-							<a href="#"><i class="fab fa-twitter fleft padding-right"></i> </a>
-							<p>Lorem Ipsum is simply dummy...<a href="#">https://www.lipsum.com/</a></p>
-						</li>
-					</ul-->
-					<!--footer_ul2_amrc ends here-->
-				</div>
-				<!--div class="col-lg-3 col-md-6 col-sm-6 ">
-					<div class="news-box">
-						<h5 class="headin5_amrc col_white_amrc pt2">Newsletter</h5>
-						<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
-						<form action="#">
-							<div class="input-group">
-								<input class="form-control" placeholder="Search for..." type="text">
-								<span class="input-group-btn">
-								  <button class="btn btn-secondary" type="button">Go!</button>
-								</span>
-							</div>
-						</form>
-					</div>
-				</div-->
-			</div>
-		</div>
-        <div class="container">
-            <p class="copyright text-center">All Rights Reserved. &copy; 2018 <a href="#">Senegal Academy</a> Concepté Par : 
-				<a href="https://technofuturgroup.com/">Technofutur Group</a>
-            </p>
+    <nav>
+      <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#formation">Formations</a></li>
+        <li><a href="#maintenance">Maintenance</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-			<ul class="footer-social">
-				<li><a class="facebook hb-xs-margin" href="#"><span class="hb hb-xs spin hb-facebook"><i class="fab fa-facebook-f"></i></span></a></li>
-				<li><a class="twitter hb-xs-margin" href="#"><span class="hb hb-xs spin hb-twitter"><i class="fab fa-twitter"></i></span></a></li>
-				<li><a class="instagram hb-xs-margin" href="#"><span class="hb hb-xs spin hb-instagram"><i class="fab fa-instagram"></i></span></a></li>
-				<li><a class="googleplus hb-xs-margin" href="#"><span class="hb hb-xs spin hb-google-plus"><i class="fab fa-google-plus-g"></i></span></a></li>
-				<li><a class="dribbble hb-xs-margin" href="#"><span class="hb hb-xs spin hb-dribbble"><i class="fab fa-dribbble"></i></span></a></li>
-			</ul>
-        </div>
-    </footer>
+<!-- HERO : création de plateformes digitales + ILLUSTRATION IMAGE -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <h2>Création de <span>plateformes digitales</span> sur mesure</h2>
+      <p>Nous concevons des sites web, applications et écosystèmes digitaux qui transforment votre vision en réalité. Design moderne, performance et innovation.</p>
+      <a href="#services" class="btn-orange"><i class="fas fa-arrow-right" style="margin-right: 8px;"></i> Découvrir</a>
+    </div>
+    <div class="hero-illustration">
+      <!-- illustration par image (plus riche) -->
+      <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plateformes digitales illustration">
+    </div>
+  </div>
+</section>
 
-	
-</div>
-	  
+<!-- SERVICES + création plateformes (avec illustrations images) -->
+<section id="services" class="services">
+  <div class="container">
+    <h2 class="section-title"><span>✧</span> Nos expertises digitales</h2>
+    <div class="service-cards">
+      <div class="card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plateformes digitales">
+        <h3>Plateformes digitales</h3>
+        <p>Sites vitrines, e‑commerce, applications métier. Interfaces riches et intuitives, avec illustrations uniques.</p>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Stratégie UX">
+        <h3>Stratégie & UI/UX</h3>
+        <p>Design centré utilisateur, parcours fluides, et illustrations originales pour marquer les esprits.</p>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Applications mobiles">
+        <h3>Applications mobiles</h3>
+        <p>De l'idée à la store, nous développons vos apps natives/hybrides (iOS/Android).</p>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Solutions cloud">
+        <h3>Solutions cloud</h3>
+        <p>Hébergement, déploiement continu et architecture scalable pour vos projets.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<style>
-	/*!
- *  Zonebiz - Business Consulting Bootstrap4 Responsive Template
- */
+<!-- FORMATION bureautique & developpement web avec IMAGES -->
+<section id="formation" class="formation">
+  <div class="container">
+    <h2 class="section-title"><span>⚡</span> Formations professionnelles</h2>
+    <div class="flex-formation">
+      <!-- bloc Bureautique -->
+      <div class="formation-block">
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Formation bureautique">
+        <h3>Bureautique</h3>
+        <ul>
+          <li><i class="fas fa-check-circle"></i> Word / Excel / PowerPoint</li>
+          <li><i class="fas fa-check-circle"></i> Outlook & gestion administrative</li>
+          <li><i class="fas fa-check-circle"></i> Google Workspace</li>
+          <li><i class="fas fa-check-circle"></i> Initiation traitement de texte</li>
+          <li><i class="fas fa-check-circle"></i> Certification TOSA (préparation)</li>
+        </ul>
+      </div>
+      <!-- bloc Développement Web -->
+      <div class="formation-block">
+        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Formation développement web">
+        <h3>Développement web</h3>
+        <ul>
+          <li><i class="fas fa-check-circle"></i> HTML5 / CSS3 / JavaScript</li>
+          <li><i class="fas fa-check-circle"></i> React / Node.js / bases backend</li>
+          <li><i class="fas fa-check-circle"></i> WordPress & CMS</li>
+          <li><i class="fas fa-check-circle"></i> Déploiement & versioning (Git)</li>
+          <li><i class="fas fa-check-circle"></i> APIs & bases de données</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-@import url('https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900');
- 
+<!-- SECTION MAINTENANCE DES MACHINES & GESTION DE SITES WEB avec IMAGES -->
+<section id="maintenance" class="maintenance-web">
+  <div class="container grid-2">
+    <!-- Maintenance machines (hardware) -->
+    <div class="mainten-card">
+      <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Maintenance machines">
+      <h3>Maintenance des machines</h3>
+      <p>Diagnostic, nettoyage, remplacement de composants, optimisation et réparation de vos PC, Mac, serveurs et périphériques. Intervention sur site ou à distance.</p>
+      <p><i class="fas fa-wrench" style="color: var(--orange);"></i> Dépannage express</p>
+      <p><i class="fas fa-shield-alt" style="color: var(--orange);"></i> Sécurité & antivirus</p>
+      <span class="badge">matériel & logiciel</span>
+    </div>
+    <!-- Gestion de sites web -->
+    <div class="gest-card">
+      <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gestion sites web">
+      <h3>Gestion de sites web</h3>
+      <p>Mise à jour, sauvegarde, sécurité, modération et évolution de votre site. Nous prenons en main votre vitrine pour que vous restiez concentré sur votre activité.</p>
+      <p style="margin-top: 1.5rem;"><i class="fas fa-check-circle" style="color: var(--orange);"></i> Mises à jour CMS & plugins</p>
+      <p><i class="fas fa-check-circle" style="color: var(--orange);"></i> Sécurité & audits</p>
+      <p><i class="fas fa-check-circle" style="color: var(--orange);"></i> Création de contenu</p>
+      <p><i class="fas fa-check-circle" style="color: var(--orange);"></i> Suivi SEO & analytics</p>
+    </div>
+  </div>
+</section>
 
- 
- /* ... [Tout le code CSS existant jusqu'au footer] ... */
- 
- /* ==================== */
- /* FOOTER CORRECTIONS */
- /* ==================== */
- .footer { 
-   width:100%; 
-   background: url(../images/footer-bg.jpg) no-repeat center;
-   background-size: cover;
-   min-height:250px; 
-   padding:40px 0px 25px 0px;
- }
- 
- .footer .container.bottom_border {
-   padding-bottom: 30px;
- }
- 
- .footer h5.headin5_amrc {
-   color: #ffffff;
-   font-weight: 600;
-   font-size: 18px;
-   margin-bottom: 20px;
-   padding-bottom: 10px;
-   position: relative;
-   text-align: center;
- }
- 
- .footer h5.headin5_amrc:after {
-   content: "";
-   position: absolute;
-   width: 50px;
-   height: 2px;
-   background: #19ee9c;
-   bottom: 0;
-   left: 50%;
-   transform: translateX(-50%);
- }
- 
- .footer .footer-social {
-   display: flex;
-   justify-content: center;
-   margin: 0 auto;
-   padding: 0;
-   list-style: none;
-   width: 100%;
- }
- 
- .footer .footer-social li {
-   margin: 0 8px;
- }
- 
- .footer .footer-social li a {
-   color: #ffffff;
-   font-size: 16px;
-   transition: all 0.3s ease;
- }
- 
- .footer .footer-social li a:hover {
-   color: #19ee9c;
- }
- 
- .footer .col-lg-4 {
-   margin-bottom: 30px;
-   text-align: center;
- }
- 
- .footer .copyright {
-   margin-top: 20px;
-   padding-top: 20px;
-   border-top: 1px solid rgba(255,255,255,0.1);
- }
- 
- /* Responsive adjustments */
- @media (max-width: 767px) {
-   .footer .col-lg-4 {
-	 margin-bottom: 25px;
-   }
-   
-   .footer h5.headin5_amrc {
-	 margin-top: 15px;
-   }
- }
- 
- /* ==================== */
- /* RESTE DU CODE EXISTANT */
- /* ==================== */
- 
- /* ... [Tout le reste du code CSS existant] ... */
-</style>
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="js/imagesloaded.pkgd.min.js"></script>
-<script src="js/isotope.pkgd.min.js"></script>
-<script src="js/filter.js"></script>
-<script src="js/jquery.appear.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.fancybox.min.js"></script>
-<script src="js/script.js"></script>
+<!-- CONTENU SUPPLÉMENTAIRE : STATISTIQUES ET TÉMOIGNAGES (plus de contenu/illustrations) -->
+<section class="extra-content">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <i class="fas fa-project-diagram"></i>
+        <h4>150+</h4>
+        <p>projets livrés</p>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-users"></i>
+        <h4>300+</h4>
+        <p>apprenants formés</p>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-tools"></i>
+        <h4>500+</h4>
+        <p>machines réparées</p>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-globe"></i>
+        <h4>80+</h4>
+        <p>sites gérés</p>
+      </div>
+    </div>
+
+    <h2 class="section-title" style="color: white; border-left-color: var(--orange); margin-top: 2rem;"><span>💬</span> Ils nous font confiance</h2>
+    <div class="testimonials">
+      <div class="testimonial-card">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Client">
+        <p>"Maison Digitale a complètement transformé notre présence en ligne. L'équipe est à l'écoute et très professionnelle."</p>
+        <h5>Thomas L. - Directeur commercial</h5>
+      </div>
+      <div class="testimonial-card">
+        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cliente">
+        <p>"La formation en bureautique m'a permis de gagner en efficacité au quotidien. Formateurs experts et pédagogues."</p>
+        <h5>Sophie M. - Assistante de direction</h5>
+      </div>
+      <div class="testimonial-card">
+        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Client">
+        <p>"Maintenance rapide et efficace. Mon PC était réparé en moins de 24h. Je recommande vivement !"</p>
+        <h5>Karim B. - Entrepreneur</h5>
+      </div>
+      <div class="testimonial-card">
+        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cliente">
+        <p>"Grâce à leur gestion, mon site est toujours à jour et bien référencé. Une tranquillité d'esprit absolue."</p>
+        <h5>Élodie R. - Créatrice de contenu</h5>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER / CONTACT (id contact) -->
+<footer id="contact">
+  <div class="container">
+    <h3 style="font-size: 2rem;">Maison Digitale</h3>
+    <p style="color: #aaa;">orange & noir – l’énergie créative</p>
+    <div class="footer-links">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+    <p style="margin-top: 2rem;">&copy; 2025 Maison Digitale – Tous droits réservés</p>
+  </div>
+</footer>
+
+<!-- BOUTON WHATSAPP FLOTTANT HORIZONTAL & FIXE (direct canal) -->
+<a href="https://wa.me/221771802352?text=Bonjour%20Maison%20Digitale%20!%20Je%20souhaite%20en%20savoir%20plus%20sur%20vos%20services." 
+   class="wa-float" 
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Discuter sur WhatsApp">
+  <i class="fab fa-whatsapp"></i> 
+  <span>WhatsApp direct</span>
+</a>
+
+<!-- petit script JS pour un effet smooth ou autre (optionnel) -->
+<script>
+  (function() {
+    // ajout d'un effet de scroll en douceur pour les ancres
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  })();
+</script>
+
 </body>
 </html>
