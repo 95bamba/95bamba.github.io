@@ -1,893 +1,464 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Maison Digitale</title>
-  <!-- Font Awesome 6 (free) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-
-    body {
-      background-color: #fafafa;
-      color: #1e1e1e;
-      line-height: 1.5;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    /* couleurs : orange & noir */
-    :root {
-      --orange: #f97316;
-      --orange-dark: #ea580c;
-      --black: #0a0a0a;
-      --gray-dark: #171717;
-      --gray-light: #f5f5f5;
-      --white: #ffffff;
-      --shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    /* --- HEADER --- */
-    header {
-      background-color: var(--black);
-      color: white;
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 3px solid var(--orange);
-      width: 100%;
-    }
-
-    .header-flex {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-    }
-
-    .logo h1 {
-      font-size: clamp(1.5rem, 5vw, 2rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      white-space: nowrap;
-    }
-    
-    .logo span {
-      color: var(--orange);
-    }
-    .logo .digit {
-      font-weight: 300;
-      color: white;
-    }
-
-    nav ul {
-      display: flex;
-      gap: clamp(0.8rem, 3vw, 2.2rem);
-      list-style: none;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.2s;
-      font-size: clamp(0.9rem, 3vw, 1.1rem);
-      white-space: nowrap;
-    }
-    
-    nav a:hover {
-      color: var(--orange);
-      border-bottom: 2px solid var(--orange);
-      padding-bottom: 0.2rem;
-    }
-
-    /* --- BOUTON WHATSAPP FLOTTANT HORIZONTAL FIXE (bas à droite) --- */
-    .wa-float {
-      position: fixed;
-      bottom: max(20px, 3vh);
-      right: max(15px, 2vw);
-      background-color: #25D366;
-      color: white;
-      padding: 0.7rem 1.5rem 0.7rem 1.3rem;
-      border-radius: 60px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-      z-index: 999;
-      transition: 0.2s;
-      border: 2px solid white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: clamp(0.9rem, 4vw, 1.2rem);
-      backdrop-filter: blur(2px);
-      max-width: 90%;
-      white-space: nowrap;
-    }
-    
-    .wa-float i {
-      font-size: clamp(1.5rem, 5vw, 2rem);
-    }
-    
-    .wa-float:hover {
-      background-color: #20b859;
-      transform: scale(1.05);
-      box-shadow: 0 20px 30px rgba(0,0,0,0.3);
-    }
-
-    /* --- HERO avec illustration par IMAGE --- */
-    .hero {
-      background: linear-gradient(135deg, var(--black) 0%, #1f1f1f 100%);
-      color: white;
-      padding: 3rem 0;
-      border-bottom: 5px solid var(--orange);
-      width: 100%;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .hero h2 {
-      font-size: clamp(2rem, 6vw, 3.3rem);
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-    
-    .hero h2 span {
-      color: var(--orange);
-      border-bottom: 4px solid var(--orange);
-      display: inline-block;
-      padding-bottom: 0.2rem;
-    }
-    
-    .hero p {
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      color: #d4d4d4;
-      margin-bottom: 2rem;
-      max-width: 100%;
-    }
-
-    .btn-orange {
-      background-color: var(--orange);
-      color: var(--black);
-      font-weight: 700;
-      padding: 0.9rem 2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      display: inline-block;
-      font-size: clamp(1rem, 3.5vw, 1.2rem);
-      border: 2px solid transparent;
-      transition: 0.25s;
-      box-shadow: 0 8px 18px rgba(249, 115, 22, 0.3);
-      width: fit-content;
-    }
-    
-    .btn-orange:hover {
-      background-color: transparent;
-      border: 2px solid var(--orange);
-      color: var(--orange);
-    }
-
-    .hero-illustration {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .hero-illustration img {
-      max-width: 100%;
-      height: auto;
-      filter: drop-shadow(0 20px 25px #00000060);
-      border-radius: 20px;
-      width: 100%;
-      object-fit: cover;
-    }
-
-    /* --- SERVICES --- */
-    .services {
-      padding: 4rem 0;
-      background: white;
-      width: 100%;
-    }
-    
-    .section-title {
-      font-size: clamp(1.8rem, 5vw, 2.5rem);
-      font-weight: 700;
-      margin-bottom: 2.5rem;
-      border-left: 10px solid var(--orange);
-      padding-left: 1.2rem;
-      word-break: break-word;
-    }
-    
-    .section-title span {
-      color: var(--orange);
-    }
-
-    .service-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-    }
-    
-    .card {
-      background: var(--gray-light);
-      border-radius: 30px;
-      padding: 1.8rem 1.5rem;
-      transition: 0.2s ease;
-      border: 2px solid transparent;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-      text-align: center;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .card:hover {
-      border-color: var(--orange);
-      transform: translateY(-10px);
-      box-shadow: var(--shadow);
-    }
-    
-    .card .card-img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 20px;
-      margin-bottom: 1.3rem;
-      border: 3px solid var(--orange);
-    }
-    
-    .card h3 {
-      font-size: clamp(1.4rem, 4vw, 1.7rem);
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
-    
-    .card p {
-      color: #2e2e2e;
-      font-size: clamp(0.95rem, 2.5vw, 1rem);
-    }
-
-    /* --- FORMATION --- */
-    .formation {
-      background: var(--gray-dark);
-      color: white;
-      padding: 4rem 0;
-      width: 100%;
-    }
-    
-    .formation .section-title {
-      color: white;
-      border-left-color: var(--orange);
-    }
-    
-    .flex-formation {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-    }
-    
-    .formation-block {
-      background: #232323;
-      border-radius: 40px;
-      padding: 2rem;
-      flex: 1 1 280px;
-      border-bottom: 6px solid var(--orange);
-      width: 100%;
-    }
-    
-    .formation-block img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 25px;
-      margin-bottom: 1.5rem;
-      border: 3px solid var(--orange);
-    }
-    
-    .formation-block h3 {
-      font-size: clamp(1.6rem, 4vw, 2rem);
-      margin-bottom: 1rem;
-    }
-    
-    .formation-block ul {
-      list-style: none;
-    }
-    
-    .formation-block li {
-      margin: 0.8rem 0;
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    
-    .formation-block li i {
-      font-size: 1.3rem;
-      color: var(--orange);
-      min-width: 24px;
-    }
-
-    /* --- MAINTENANCE & GESTION SITES --- */
-    .maintenance-web {
-      padding: 4rem 0;
-      background: white;
-      width: 100%;
-    }
-    
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: stretch;
-    }
-    
-    .mainten-card {
-      background: var(--black);
-      color: white;
-      border-radius: 40px;
-      padding: 2rem;
-      transition: 0.2s;
-      border: 2px solid var(--orange);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .mainten-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 25px;
-      margin-bottom: 1.5rem;
-      border: 3px solid var(--orange);
-    }
-    
-    .mainten-card h3 {
-      font-size: clamp(1.6rem, 4vw, 2rem);
-      margin-bottom: 1rem;
-    }
-    
-    .mainten-card p {
-      margin: 1rem 0;
-      opacity: 0.9;
-      font-size: clamp(0.95rem, 2.5vw, 1rem);
-    }
-    
-    .badge {
-      background: var(--orange);
-      color: black;
-      font-weight: bold;
-      padding: 0.5rem 1.2rem;
-      border-radius: 60px;
-      display: inline-block;
-      width: fit-content;
-      margin-top: auto;
-      font-size: clamp(0.85rem, 2.5vw, 1rem);
-    }
-
-    .gest-card {
-      background: white;
-      border: 3px solid var(--black);
-      border-radius: 40px;
-      padding: 2rem;
-      box-shadow: var(--shadow);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .gest-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 25px;
-      margin-bottom: 1.5rem;
-      border: 3px solid var(--orange);
-    }
-    
-    .gest-card h3 {
-      font-size: clamp(1.6rem, 4vw, 2rem);
-      margin: 0.5rem 0 1rem;
-    }
-    
-    .gest-card p {
-      font-size: clamp(0.95rem, 2.5vw, 1rem);
-      margin: 0.5rem 0;
-    }
-
-    /* --- CONTENU SUPPLÉMENTAIRE : TÉMOIGNAGES & STATISTIQUES --- */
-    .extra-content {
-      background: linear-gradient(145deg, #0c0c0c 0%, #1a1a1a 100%);
-      color: white;
-      padding: 4rem 0;
-      border-top: 5px solid var(--orange);
-      border-bottom: 5px solid var(--orange);
-      width: 100%;
-    }
-    
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-      text-align: center;
-    }
-    
-    .stat-item {
-      background: rgba(249, 115, 22, 0.1);
-      padding: 1.5rem 1rem;
-      border-radius: 30px;
-      border: 1px solid var(--orange);
-    }
-    
-    .stat-item i {
-      font-size: clamp(2rem, 4vw, 3rem);
-      color: var(--orange);
-      margin-bottom: 0.8rem;
-    }
-    
-    .stat-item h4 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      font-weight: 800;
-      line-height: 1.2;
-    }
-    
-    .stat-item p {
-      font-size: clamp(0.85rem, 2.5vw, 1rem);
-    }
-    
-    .testimonials {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-    
-    .testimonial-card {
-      background: #232323;
-      border-radius: 30px;
-      padding: 1.8rem;
-      border-left: 8px solid var(--orange);
-      height: 100%;
-    }
-    
-    .testimonial-card img {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--orange);
-      margin-bottom: 1rem;
-    }
-    
-    .testimonial-card p {
-      font-style: italic;
-      margin: 0.8rem 0;
-      font-size: clamp(0.9rem, 2.5vw, 1rem);
-    }
-    
-    .testimonial-card h5 {
-      color: var(--orange);
-      font-size: clamp(0.95rem, 2.5vw, 1.2rem);
-      word-break: break-word;
-    }
-
-    /* --- PIED DE PAGE --- */
-    footer {
-      background: var(--black);
-      color: white;
-      padding: 2rem 0;
-      border-top: 5px solid var(--orange);
-      text-align: center;
-      width: 100%;
-    }
-    
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin: 1.2rem 0 0;
-    }
-    
-    .footer-links a {
-      color: white;
-      text-decoration: none;
-      font-size: clamp(1.1rem, 4vw, 1.2rem);
-    }
-    
-    .footer-links a:hover {
-      color: var(--orange);
-    }
-
-    /* --- RESPONSIVE DESIGN 100% MOBILE --- */
-    @media screen and (max-width: 1024px) {
-      .container {
-        padding: 0 1.2rem;
-      }
-      
-      .hero-grid {
-        gap: 1.5rem;
-      }
-    }
-
-    @media screen and (max-width: 900px) {
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .testimonials {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media screen and (max-width: 768px) {
-      .header-flex {
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      nav ul {
-        justify-content: center;
-      }
-      
-      .hero-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      
-      .hero p {
-        margin-left: auto;
-        margin-right: auto;
-      }
-      
-      .btn-orange {
-        margin: 0 auto;
-      }
-      
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-      
-      .section-title {
-        text-align: left;
-      }
-      
-      .service-cards {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media screen and (max-width: 480px) {
-      .container {
-        padding: 0 1rem;
-      }
-      
-      .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-      
-      .stat-item {
-        padding: 1.2rem;
-      }
-      
-      .formation-block, 
-      .mainten-card, 
-      .gest-card {
-        padding: 1.5rem;
-      }
-      
-      .card {
-        padding: 1.5rem 1rem;
-      }
-      
-      .hero {
-        padding: 2rem 0;
-      }
-      
-      .services, .formation, .maintenance-web, .extra-content {
-        padding: 3rem 0;
-      }
-      
-      .wa-float {
-        padding: 0.6rem 1.2rem;
-        bottom: 15px;
-        right: 15px;
-        font-size: 0.9rem;
-      }
-      
-      .wa-float i {
-        font-size: 1.4rem;
-      }
-      
-      .section-title {
-        border-left-width: 8px;
-        padding-left: 1rem;
-      }
-    }
-
-    @media screen and (max-width: 360px) {
-      nav ul {
-        gap: 0.6rem;
-      }
-      
-      nav a {
-        font-size: 0.8rem;
-      }
-      
-      .logo h1 {
-        font-size: 1.3rem;
-      }
-      
-      .wa-float span {
-        display: none;
-      }
-      
-      .wa-float {
-        padding: 0.8rem;
-        border-radius: 50px;
-      }
-      
-      .wa-float i {
-        margin: 0;
-        font-size: 1.8rem;
-      }
-    }
-
-    /* Sécurité supplémentaire pour les images */
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* Pour les très grands écrans */
-    @media screen and (min-width: 1600px) {
-      .container {
-        max-width: 1400px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Gandiole · Mairie Communale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --vert-sen: #00853F;
+            --jaune: #FFCD00;
+            --rouge: #CE1126;
+            --bg-clair: #F8F9FA;
+            --card-bg: #ffffff;
+            --text-dark: #1e2a2e;
+            --shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        body.dark {
+            --bg-clair: #121212;
+            --card-bg: #1e2a27;
+            --text-dark: #f0f3f5;
+            background: #0c1f15;
+            color: #f0f3f5;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-clair);
+            color: var(--text-dark);
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        /* NAVBAR FIXE */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--card-bg);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.9rem 2rem;
+            max-width: 1400px;
+            margin: auto;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+        .etoile-logo {
+            width: 42px;
+            height: 42px;
+            background: var(--vert-sen);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .logo-text { color: var(--vert-sen); font-weight: 800; letter-spacing: -0.3px; }
+        body.dark .logo-text { color: var(--jaune);}
+        .nav-menu {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-link {
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+        .nav-link:hover { color: var(--rouge); transform: translateY(-2px);}
+        .dark-toggle {
+            background: var(--vert-sen);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 12px;
+        }
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: var(--vert-sen);
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 72px;
+                flex-direction: column;
+                background: var(--card-bg);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                gap: 28px;
+                box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+            }
+            .nav-menu.active { left: 0; }
+            .nav-container { padding: 0.8rem 1.2rem; }
+        }
+        /* CARROUSEL HERO */
+        .carousel-container {
+            margin-top: 80px;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 0 0 32px 32px;
+            box-shadow: var(--shadow);
+        }
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            height: 460px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .carousel-caption {
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(4px);
+            padding: 1.5rem 2rem;
+            border-radius: 32px;
+            color: white;
+            text-align: center;
+            max-width: 80%;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 0 1rem;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+        }
+        .prev { left: 15px; }
+        .next { right: 15px; }
+        @media (max-width: 768px) {
+            .carousel-slide { height: 320px; }
+            .carousel-caption { font-size: 0.9rem; padding: 1rem; }
+        }
+        /* mot du maire */
+        .maire-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: var(--card-bg);
+            border-radius: 40px;
+            padding: 2rem;
+            margin: 3rem 0;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+        .maire-image {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+        .maire-image img {
+            width: 100%;
+            max-width: 260px;
+            border-radius: 32px;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+            border: 3px solid var(--jaune);
+        }
+        .maire-text {
+            flex: 2;
+        }
+        .btn-primary {
+            background: var(--vert-sen);
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-block;
+        }
+        .btn-primary:hover { background: var(--rouge); transform: scale(1.02);}
+        .section-title {
+            font-size: 2rem;
+            border-left: 6px solid var(--jaune);
+            padding-left: 1rem;
+            margin: 2.5rem 0 1.5rem;
+        }
+        .activity-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .act-card {
+            background: var(--card-bg);
+            border-radius: 32px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        .act-card:hover { transform: translateY(-8px); box-shadow: var(--shadow);}
+        .act-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .act-info { padding: 1.5rem; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 1.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+        /* footer moderne */
+        .footer-modern {
+            background: linear-gradient(135deg, var(--rouge) 0%, #8B0000 100%);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-col h4 { margin-bottom: 1rem; border-left: 3px solid var(--jaune); padding-left: 10px; }
+        .footer-col a { color: #ffecb3; text-decoration: none; display: block; margin: 0.5rem 0; transition: 0.2s; }
+        .footer-col a:hover { color: white; transform: translateX(5px);}
+        .copyright { text-align: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1.5rem; font-size: 0.85rem;}
+        /* autres sections communes */
+        .modal {
+            display: none;
+            position: fixed;
+            top:0; left:0;
+            width:100%; height:100%;
+            background: rgba(0,0,0,0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            max-width: 500px;
+            width: 90%;
+            border-radius: 32px;
+            padding: 2rem;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 60px;
+            border: 1px solid #ccc;
+        }
+        .contact-form textarea { border-radius: 24px; }
+        .annonce-item {
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .fade-in { animation: fadeUp 0.6s ease forwards; }
+        .loader {
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: var(--bg-clair);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .spinner {
+            width: 48px; height:48px;
+            border:5px solid #ccc;
+            border-top:5px solid var(--vert-sen);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg);} }
+    </style>
 </head>
 <body>
+<div class="loader" id="loader"><div class="spinner"></div></div>
 
-<!-- HEADER orange & noir -->
-<header>
-  <div class="container header-flex">
-    <div class="logo">
-      <h1>Maison<span>Digitale</span> <span class="digit">◢</span></h1>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="#">Accueil</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#formation">Formations</a></li>
-        <li><a href="#maintenance">Maintenance</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<!-- HERO : création de plateformes digitales + ILLUSTRATION IMAGE -->
-<section class="hero">
-  <div class="container hero-grid">
-    <div>
-      <h2>Création de <span>plateformes digitales</span> sur mesure</h2>
-      <p>Nous concevons des sites web, applications et écosystèmes digitaux qui transforment votre vision en réalité. Design moderne, performance et innovation.</p>
-      <a href="#services" class="btn-orange"><i class="fas fa-arrow-right" style="margin-right: 8px;"></i> Découvrir</a>
-    </div>
-    <div class="hero-illustration">
-      <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plateformes digitales illustration" loading="lazy">
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES + création plateformes (avec illustrations images) -->
-<section id="services" class="services">
-  <div class="container">
-    <h2 class="section-title"><span>✧</span> Nos expertises digitales</h2>
-    <div class="service-cards">
-      <div class="card">
-        <img class="card-img" src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plateformes digitales" loading="lazy">
-        <h3>Plateformes digitales</h3>
-        <p>Sites vitrines, e‑commerce, applications métier. Interfaces riches et intuitives, avec illustrations uniques.</p>
-      </div>
-      <div class="card">
-        <img class="card-img" src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Stratégie UX" loading="lazy">
-        <h3>Stratégie & UI/UX</h3>
-        <p>Design centré utilisateur, parcours fluides, et illustrations originales pour marquer les esprits.</p>
-      </div>
-      <div class="card">
-        <img class="card-img" src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Applications mobiles" loading="lazy">
-        <h3>Applications mobiles</h3>
-        <p>De l'idée à la store, nous développons vos apps natives/hybrides (iOS/Android).</p>
-      </div>
-      <div class="card">
-        <img class="card-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Solutions cloud" loading="lazy">
-        <h3>Solutions cloud</h3>
-        <p>Hébergement, déploiement continu et architecture scalable pour vos projets.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FORMATION bureautique & developpement web avec IMAGES -->
-<section id="formation" class="formation">
-  <div class="container">
-    <h2 class="section-title"><span>⚡</span> Formations professionnelles</h2>
-    <div class="flex-formation">
-      <!-- bloc Bureautique -->
-      <div class="formation-block">
-        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Formation bureautique" loading="lazy">
-        <h3>Bureautique</h3>
-        <ul>
-          <li><i class="fas fa-check-circle"></i> Word / Excel / PowerPoint</li>
-          <li><i class="fas fa-check-circle"></i> Outlook & gestion administrative</li>
-          <li><i class="fas fa-check-circle"></i> Google Workspace</li>
-          <li><i class="fas fa-check-circle"></i> Initiation traitement de texte</li>
-          <li><i class="fas fa-check-circle"></i> Certification TOSA (préparation)</li>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo"><div class="etoile-logo"></div><span class="logo-text">Mairie de Gandiole</span></div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="#" class="nav-link" data-nav="home">Accueil</a></li>
+            <li><a href="#" class="nav-link" data-nav="activities">Activités</a></li>
+            <li><a href="#" class="nav-link" data-nav="services">Services</a></li>
+            <li><a href="#" class="nav-link" data-nav="annonces">Annonces</a></li>
+            <li><a href="#" class="nav-link" data-nav="contact">Contact</a></li>
+            <li><button class="dark-toggle" id="darkModeToggle">🌙 Mode</button></li>
         </ul>
-      </div>
-      <!-- bloc Développement Web -->
-      <div class="formation-block">
-        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Formation développement web" loading="lazy">
-        <h3>Développement web</h3>
-        <ul>
-          <li><i class="fas fa-check-circle"></i> HTML5 / CSS3 / JavaScript</li>
-          <li><i class="fas fa-check-circle"></i> React / Node.js / bases backend</li>
-          <li><i class="fas fa-check-circle"></i> WordPress & CMS</li>
-          <li><i class="fas fa-check-circle"></i> Déploiement & versioning (Git)</li>
-          <li><i class="fas fa-check-circle"></i> APIs & bases de données</li>
-        </ul>
-      </div>
     </div>
-  </div>
-</section>
+</nav>
 
-<!-- SECTION MAINTENANCE DES MACHINES & GESTION DE SITES WEB avec IMAGES -->
-<section id="maintenance" class="maintenance-web">
-  <div class="container grid-2">
-    <!-- Maintenance machines (hardware) -->
-    <div class="mainten-card">
-      <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Maintenance machines" loading="lazy">
-      <h3>Maintenance des machines</h3>
-      <p>Diagnostic, nettoyage, remplacement de composants, optimisation et réparation de vos PC, Mac, serveurs et périphériques. Intervention sur site ou à distance.</p>
-      <p><i class="fas fa-wrench" style="color: var(--orange);"></i> Dépannage express</p>
-      <p><i class="fas fa-shield-alt" style="color: var(--orange);"></i> Sécurité & antivirus</p>
-      <span class="badge">matériel & logiciel</span>
+<!-- CARROUSEL D'IMAGES -->
+<div class="carousel-container">
+    <div class="carousel-slides" id="carouselSlides">
+        <div class="carousel-slide" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://placehold.co/1600x600/2D6A4F/FFFFFF?text=Agriculture+Maraîchère+Gandiole');">
+            <div class="carousel-caption"><h2> Riz & Maraîchage</h2><p>Coopératives féminines, production durable</p></div>
+        </div>
+        <div class="carousel-slide" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://placehold.co/1600x600/CE1126/FFFFFF?text=Pêche+Artisanale+%26+Tourisme');">
+            <div class="carousel-caption"><h2>Pêche artisanale</h2><p>Économie locale et circuits solidaires</p></div>
+        </div>
+        <div class="carousel-slide" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://placehold.co/1600x600/FFCD00/1e2a2e?text=Élevage+%26+Environnement');">
+            <div class="carousel-caption"><h2>Élevage & Reboisement</h2><p>Projets verts, santé animale</p></div>
+        </div>
     </div>
-    <!-- Gestion de sites web -->
-    <div class="gest-card">
-      <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gestion sites web" loading="lazy">
-      <h3>Gestion de sites web</h3>
-      <p>Mise à jour, sauvegarde, sécurité, modération et évolution de votre site. Nous prenons en main votre vitrine pour que vous restiez concentré sur votre activité.</p>
-      <p style="margin-top: 1rem;"><i class="fas fa-check-circle" style="color: var(--orange);"></i> Mises à jour CMS & plugins</p>
-      <p><i class="fas fa-check-circle" style="color: var(--orange);"></i> Sécurité & audits</p>
-      <p><i class="fas fa-check-circle" style="color: var(--orange);"></i> Création de contenu</p>
-      <p><i class="fas fa-check-circle" style="color: var(--orange);"></i> Suivi SEO & analytics</p>
-    </div>
-  </div>
-</section>
+    <button class="carousel-btn prev" id="prevBtn">❮</button>
+    <button class="carousel-btn next" id="nextBtn">❯</button>
+</div>
 
-<!-- CONTENU SUPPLÉMENTAIRE : STATISTIQUES ET TÉMOIGNAGES -->
-<section class="extra-content">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <i class="fas fa-project-diagram"></i>
-        <h4>150+</h4>
-        <p>projets livrés</p>
-      </div>
-      <div class="stat-item">
-        <i class="fas fa-users"></i>
-        <h4>300+</h4>
-        <p>apprenants formés</p>
-      </div>
-      <div class="stat-item">
-        <i class="fas fa-tools"></i>
-        <h4>500+</h4>
-        <p>machines réparées</p>
-      </div>
-      <div class="stat-item">
-        <i class="fas fa-globe"></i>
-        <h4>80+</h4>
-        <p>sites gérés</p>
-      </div>
+<main id="main-content">
+    <!-- PAGE ACCUEIL enrichie -->
+    <div id="home-page">
+        <div class="container">
+            <!-- Mot du Maire avec image gauche / texte droite -->
+            <div class="maire-section">
+                <div class="maire-image">
+                    <img src="https://placehold.co/300x320/00853F/FFFFFF?text=Maire+le+Maire" alt="Mr le Maire" loading="lazy">
+                </div>
+                <div class="maire-text">
+                    <h2 style="color: var(--vert-sen);">Mot du Maire de Gandiole,</h2>
+                    <p style="font-size:1.05rem;">Chers habitants et visiteurs,<br><br>
+                    Bienvenue à Gandiole, commune fière de son agriculture maraîchère, de son élevage prospère, de sa pêche artisanale et de son tourisme solidaire. Ensemble, nous développons des projets innovants : écoles rurales, postes de santé, et protection des mangroves. Notre priorité : une croissance inclusive et durable. Je vous invite à découvrir nos réalisations et à participer à la vie communale. <strong>Bâtissons l'avenir ensemble !</strong></p>
+                    <button class="btn-primary" id="plusActionsBtn">📢 Découvrir nos actions</button>
+                </div>
+            </div>
+
+            <!-- Activités communales enrichies avec images (agriculture, élevage, tourisme, pêche) -->
+            <h2 class="section-title">⭐ Nos filières économiques phares</h2>
+            <div class="activity-showcase">
+                <div class="act-card"><img class="act-img" src="https://placehold.co/600x400/00853F/white?text=Agriculture+Maraîchère" alt="maraîchage" loading="lazy"><div class="act-info"><h3>🌱 Agriculture Maraîchère</h3><p>Tomates, oignons, piments. Plus de 200 producteurs formés, irrigation durable, coopératives féminines.</p></div></div>
+                <div class="act-card"><img class="act-img" src="https://placehold.co/600x400/FFCD00/1e2a2e?text=Élevage+et+Pâturage" alt="élevage" loading="lazy"><div class="act-info"><h3>🐐 Élevage moderne</h3><p>Élevage bovin, caprin et ovin. Centre d’insémination, campagnes de vaccination et formation des jeunes bergers.</p></div></div>
+                <div class="act-card"><img class="act-img" src="https://placehold.co/600x400/CE1126/white?text=Tourisme+Solidaire" alt="tourisme" loading="lazy"><div class="act-info"><h3>🌍 Tourisme solidaire</h3><p>Hébergement chez l’habitant, visites des rizières, artisanat local, découverte de la réserve de faune.</p></div></div>
+                <div class="act-card"><img class="act-img" src="https://placehold.co/600x400/00853F/white?text=Pêche+Artisanale" alt="pêche" loading="lazy"><div class="act-info"><h3>🎣 Pêche artisanale</h3><p>Pirogues traditionnelles, transformation de poisson, marché aux poissons soutenu par la mairie.</p></div></div>
+            </div>
+
+            <!-- Chiffres clés actualisés -->
+            <h2 class="section-title">📊 Chiffres clés de la commune</h2>
+            <div class="stats-grid">
+                <div class="stat-card"><strong>🏘️ 32 000+</strong><br>Habitants</div>
+                <div class="stat-card"><strong>🌾 350 ha</strong><br>Exploitations maraîchères</div>
+                <div class="stat-card"><strong>🐟 250</strong><br>Pêcheurs artisans</div>
+                <div class="stat-card"><strong>🏨 8</strong><br>Éco-logements solidaires</div>
+            </div>
+
+            <!-- carte interactive simple -->
+            <h2 class="section-title">🗺️ Carte interactive des lieux clés</h2>
+            <div style="background: #e2e8e7; border-radius: 32px; padding:1rem; margin-bottom:2rem;">
+                <div id="interactiveMap" style="background:#b9c9be; height:220px; border-radius:24px; display:flex; align-items:center; justify-content:center; font-weight:bold; cursor:pointer;">📍 Cliquez pour découvrir les zones d'activité</div>
+                <p id="map-feedback" style="margin-top:8px;"></p>
+            </div>
+        </div>
     </div>
 
-    <h2 class="section-title" style="color: white; border-left-color: var(--orange); margin-top: 1rem;"><span>💬</span> Ils nous font confiance</h2>
-    <div class="testimonials">
-      <div class="testimonial-card">
-        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Client" loading="lazy">
-        <p>"Maison Digitale a complètement transformé notre présence en ligne. L'équipe est à l'écoute et très professionnelle."</p>
-        <h5>Thomas L. - Directeur commercial</h5>
-      </div>
-      <div class="testimonial-card">
-        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cliente" loading="lazy">
-        <p>"La formation en bureautique m'a permis de gagner en efficacité au quotidien. Formateurs experts et pédagogues."</p>
-        <h5>Sophie M. - Assistante de direction</h5>
-      </div>
-      <div class="testimonial-card">
-        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Client" loading="lazy">
-        <p>"Maintenance rapide et efficace. Mon PC était réparé en moins de 24h. Je recommande vivement !"</p>
-        <h5>Karim B. - Entrepreneur</h5>
-      </div>
-      <div class="testimonial-card">
-        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cliente" loading="lazy">
-        <p>"Grâce à leur gestion, mon site est toujours à jour et bien référencé. Une tranquillité d'esprit absolue."</p>
-        <h5>Élodie R. - Créatrice de contenu</h5>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- PAGE ACTIVITÉS (détails modale) -->
+    <div id="activities-page" style="display:none;"><div class="container" style="margin-top: 100px;"><h2 class="section-title">🌿 Activités communales détaillées</h2><div id="activitiesGrid" class="activity-showcase"></div></div></div>
+    
+    <!-- PAGE SERVICES -->
+    <div id="services-page" style="display:none;"><div class="container" style="margin-top:100px;"><h2 class="section-title">🏛️ Services municipaux</h2><div id="servicesList" class="activity-showcase"></div><div class="contact-form" style="background:var(--card-bg); padding:2rem; border-radius:32px;"><h3>Formulaire de demande service</h3><input type="text" id="servName" placeholder="Nom"><input type="email" id="servEmail" placeholder="Email"><input type="tel" id="servPhone" placeholder="Téléphone"><textarea rows="2" id="servMsg" placeholder="Message"></textarea><button class="btn-primary" id="submitServiceForm">Envoyer</button><p id="formFeedback"></p></div></div></div>
 
-<!-- FOOTER / CONTACT -->
-<footer id="contact">
-  <div class="container">
-    <h3 style="font-size: clamp(1.6rem, 5vw, 2rem);">Maison Digitale</h3>
-    <p style="color: #aaa;">orange & noir – l'énergie créative</p>
-    <div class="footer-links">
-      <a href="#"><i class="fab fa-facebook"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-linkedin"></i></a>
-      <a href="#"><i class="fab fa-github"></i></a>
+    <!-- PAGE ANNONCES -->
+    <div id="annonces-page" style="display:none;"><div class="container" style="margin-top:100px;"><h2 class="section-title">📢 Annonces officielles</h2><div style="display:flex; flex-wrap:wrap; gap:1rem;"><input id="searchAnnonce" placeholder="🔍 Rechercher"><select id="filterCategorie"><option value="all">Toutes catégories</option><option value="actualité">Actualités</option><option value="événement">Événements</option><option value="appel">Appels d'offres</option></select><button id="addAnnonceBtn" class="btn-primary">➕ Ajouter annonce</button></div><div id="annoncesList"></div></div></div>
+
+    <!-- PAGE CONTACT -->
+    <div id="contact-page" style="display:none;"><div class="container" style="margin-top:100px;"><h2 class="section-title">📞 Contactez la Mairie</h2><div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;"><div><div class="act-info" style="background:var(--card-bg); border-radius:32px; padding:1.5rem;"><strong>🏛️ Maire Arona Sow</strong><br>Adresse : Ndiébène Gandiole, Saint-Louis, Sénégal<br>📞 +221 33 961 12 34<br>✉️ contact@mairiegandiole.sn</div><iframe width="100%" height="250" style="border-radius:28px;" src="https://www.openstreetmap.org/export/embed.html?bbox=-16.5%2C15.9%2C-16.2%2C16.1&layer=mapnik&marker=16.0%2C-16.35" title="map"></iframe></div><div class="contact-form"><h3>Écrivez-nous</h3><input id="contactNom" placeholder="Nom"><input id="contactEmail" placeholder="Email"><input id="fakeUpload" type="file"><textarea id="contactMessage" rows="3" placeholder="Message..."></textarea><button id="submitContact" class="btn-primary">Envoyer</button></div></div></div></div>
+</main>
+
+<!-- FOOTER MODERNE avec infos supplémentaires -->
+<footer class="footer-modern">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h4>🏛️ Mairie de Gandiole</h4><p>Ndiébène Gandiole, Département de Saint-Louis<br>Horaires : Lun-Ven 8h-16h<br>📍 Suivez nos projets sur les réseaux</p></div>
+            <div class="footer-col"><h4>📌 Liens rapides</h4><a href="#" data-nav="home">Accueil</a><a href="#" data-nav="activities">Activités</a><a href="#" data-nav="services">Services</a><a href="#" data-nav="annonces">Annonces</a><a href="#" data-nav="contact">Contact</a></div>
+            <div class="footer-col"><h4>🤝 Partenaires</h4><!--p>Union Européenne • État du Sénégal • ANOCI • ONG Solidarité Internationale</p><div style="margin-top:10px;"><span style="background:#FFCD00; padding:5px 10px; border-radius:30px; color:#000;">📢 Projet SantéCom</span--></div></div>
+            <div class="footer-col"><h4>📱 Suivez-nous</h4><a href="#">Facebook / MairieGandiole</a><a href="#">Twitter @GandioleTourisme</a><a href="#">Instagram : gandiole_agriculture</a><button id="scrollTopBtn" style="margin-top:12px; background:white; color:var(--rouge); border:none; padding:6px 16px; border-radius:40px;">↑ Retour haut</button></div>
+        </div>
+        <div class="copyright">© 2026 Plateforme Mairie – Tous droits réservés. Mentions légales | Politique de confidentialité</div>
     </div>
-    <p style="margin-top: 1.5rem;">&copy; 2025 Maison Digitale – Tous droits réservés</p>
-  </div>
 </footer>
 
-<!-- BOUTON WHATSAPP FLOTTANT HORIZONTAL & FIXE -->
-<a href="https://wa.me/221771802352?text=Bonjour%20Maison%20Digitale%20!%20Je%20souhaite%20en%20savoir%20plus%20sur%20vos%20services." 
-   class="wa-float" 
-   target="_blank"
-   rel="noopener noreferrer"
-   aria-label="Discuter sur WhatsApp">
-  <i class="fab fa-whatsapp"></i> 
-  <span>WhatsApp direct</span>
-</a>
+<div id="modal" class="modal"><div class="modal-content"><h3 id="modalTitle"></h3><p id="modalDesc"></p><button id="closeModal" class="btn-primary" style="background:var(--rouge);">Fermer</button></div></div>
 
-<!-- Script JS pour le scroll smooth -->
 <script>
-  (function() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if(target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
+    // LOADER + DARKMODE + CARROUSEL
+    window.addEventListener('load', () => {
+        document.getElementById('loader').style.display = 'none';
+        initDarkMode(); initMobileMenu(); initNavigation(); initCarousel();
+        loadActivitiesData(); loadServicesList(); initAnnoncesModule(); initContactForms(); initInteractiveMap();
+        const actionsBtn = document.getElementById('plusActionsBtn');
+        if(actionsBtn) actionsBtn.onclick = () => { document.querySelector('[data-nav="activities"]').click(); };
+        document.getElementById('scrollTopBtn')?.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+        // fadeIn observer
+        const observer = new IntersectionObserver((entries) => { entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('fade-in'); }); },{threshold:0.2});
+        document.querySelectorAll('.act-card, .stat-card, .maire-section').forEach(el=> observer.observe(el));
     });
-  })();
+    function initDarkMode(){ const btn=document.getElementById('darkModeToggle'); btn.addEventListener('click',()=>{ document.body.classList.toggle('dark'); localStorage.setItem('darkMode',document.body.classList.contains('dark')); }); if(localStorage.getItem('darkMode')==='true') document.body.classList.add('dark'); }
+    function initMobileMenu(){ const hamb=document.getElementById('hamburger'); const navMenu=document.getElementById('nav-menu'); hamb.addEventListener('click',()=>navMenu.classList.toggle('active')); document.querySelectorAll('.nav-link').forEach(l=> l.addEventListener('click',()=>navMenu.classList.remove('active'))); }
+    function initNavigation(){ const pages=['home-page','activities-page','services-page','annonces-page','contact-page']; const navs=document.querySelectorAll('[data-nav]'); function show(p){ pages.forEach(pid=>document.getElementById(pid).style.display='none'); document.getElementById(p).style.display='block'; window.scrollTo(0,0); } navs.forEach(btn=>{ btn.addEventListener('click',(e)=>{ e.preventDefault(); const t=btn.getAttribute('data-nav'); if(t==='home') show('home-page'); if(t==='activities') show('activities-page'); if(t==='services') show('services-page'); if(t==='annonces') show('annonces-page'); if(t==='contact') show('contact-page'); }); }); show('home-page'); }
+    // CARROUSEL
+    function initCarousel(){ let idx=0; const slides=document.querySelectorAll('.carousel-slide'); const total=slides.length; const slidesContainer=document.getElementById('carouselSlides'); function update(){ slidesContainer.style.transform=`translateX(-${idx*100}%)`; } document.getElementById('prevBtn').addEventListener('click',()=>{ idx=(idx-1+total)%total; update(); }); document.getElementById('nextBtn').addEventListener('click',()=>{ idx=(idx+1)%total; update(); }); setInterval(()=>{ idx=(idx+1)%total; update(); },5000); }
+    function loadActivitiesData(){ const acts=[{name:"Agriculture maraîchère",desc:"Projets d'irrigation, formation, vente groupée. Plus de 150 femmes impliquées.",img:"https://placehold.co/600x400/00853F/white?text=Maraîchage"},{name:"Élevage",desc:"Centre d'élevage caprin, distribution de médicaments vétérinaires.",img:"https://placehold.co/600x400/FFCD00/1e2a2e?text=Elevage"},{name:"Tourisme solidaire",desc:"Circuits écologiques, visites de fermes, hébergements.",img:"https://placehold.co/600x400/CE1126/white?text=Tourisme"},{name:"Pêche artisanale",desc:"Valorisation du poisson, coopérative de pêche.",img:"https://placehold.co/600x400/00853F/white?text=Pêche"}]; const grid=document.getElementById('activitiesGrid'); if(grid) grid.innerHTML=acts.map(a=>`<div class="act-card" data-detail='${JSON.stringify(a)}'><img class="act-img" src="${a.img}" loading="lazy"><div class="act-info"><h3>${a.name}</h3><p>${a.desc.substring(0,80)}...</p></div></div>`).join(''); document.querySelectorAll('#activitiesGrid .act-card').forEach(c=>{ c.addEventListener('click',()=>{ const d=JSON.parse(c.getAttribute('data-detail')); document.getElementById('modalTitle').innerText=d.name; document.getElementById('modalDesc').innerHTML=`${d.desc}<br><br>💰 Soutien de la mairie disponible.`; document.getElementById('modal').style.display='flex'; }); }); }
+    function loadServicesList(){ const servs=[{name:"État civil",desc:"Actes naissance, mariage"},{name:"Permis construire",desc:"Urbanisme"},{name:"Aide sociale",desc:"Subventions"},{name:"Santé / Poste médical",desc:"Consultations gratuites"},{name:"Éducation",desc:"Écoles et cantines"},{name:"Transport/Ambulance",desc:"Véhicule d'urgence"}]; const cont=document.getElementById('servicesList'); if(cont) cont.innerHTML=servs.map(s=>`<div class="act-card"><div class="act-info"><h3>🏛️ ${s.name}</h3><p>${s.desc}</p><button class="service-contact-btn btn-primary" style="margin-top:8px;">Demander info</button></div></div>`).join(''); document.querySelectorAll('.service-contact-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelector('[data-nav="contact"]').click(); }); }); }
+    let annoncesData=[]; function initAnnoncesModule(){ const stored=localStorage.getItem('gandiole_annonces'); if(stored) annoncesData=JSON.parse(stored); else annoncesData=[{id:1,titre:"Forum communal le 14/05",categorie:"événement"},{id:2,titre:"Projet SantéCom subvention",categorie:"actualité"},{id:3,titre:"Appel d'offres voirie",categorie:"appel"}]; renderAnnonces(); document.getElementById('searchAnnonce').addEventListener('input',renderAnnonces); document.getElementById('filterCategorie').addEventListener('change',renderAnnonces); document.getElementById('addAnnonceBtn').addEventListener('click',()=>{ let titre=prompt("Nouvelle annonce :"); if(titre){ let cat=prompt("Catégorie (actualité, événement, appel)","actualité"); annoncesData.push({id:Date.now(),titre:titre,categorie:cat}); localStorage.setItem('gandiole_annonces',JSON.stringify(annoncesData)); renderAnnonces(); } }); } function renderAnnonces(){ const txt=document.getElementById('searchAnnonce').value.toLowerCase(); const cat=document.getElementById('filterCategorie').value; const filtered=annoncesData.filter(a=>a.titre.toLowerCase().includes(txt) && (cat==='all' || a.categorie===cat)); const container=document.getElementById('annoncesList'); if(filtered.length===0){ container.innerHTML="<p>Aucune annonce disponible.</p>"; return;} container.innerHTML=filtered.map(a=>`<div class="annonce-item"><div><strong>${a.titre}</strong> <span style="color:var(--vert-sen);">[${a.categorie}]</span></div><button class="delete-annonce" data-id="${a.id}" style="background:var(--rouge);color:white;border:none;padding:6px 15px;border-radius:30px;">Supprimer</button></div>`).join(''); document.querySelectorAll('.delete-annonce').forEach(btn=>{ btn.addEventListener('click',()=>{ const id=parseInt(btn.getAttribute('data-id')); annoncesData=annoncesData.filter(a=>a.id!==id); localStorage.setItem('gandiole_annonces',JSON.stringify(annoncesData)); renderAnnonces(); }); }); }
+    function initContactForms(){ document.getElementById('submitContact')?.addEventListener('click',()=>{ const nom=document.getElementById('contactNom').value; const email=document.getElementById('contactEmail').value; if(!nom||!email.includes('@')){ alert("Nom et email valide requis"); return; } alert(`✅ ${nom}, votre message est bien reçu !`); localStorage.setItem('lastMsg',JSON.stringify({nom,email})); }); document.getElementById('submitServiceForm')?.addEventListener('click',()=>{ const mail=document.getElementById('servEmail').value; if(!mail.includes('@')){ document.getElementById('formFeedback').innerText="Mail invalide"; return;} document.getElementById('formFeedback').innerHTML="✔️ Demande envoyée à la mairie."; setTimeout(()=> document.getElementById('formFeedback').innerHTML="",3000); }); }
+    function initInteractiveMap(){ const mapDiv=document.getElementById('interactiveMap'); const feedback=document.getElementById('map-feedback'); const points=["🌾 Zone maraîchère de Ndiébène - 250 producteurs actifs","🐟 Quai de pêche artisanale de Gandiole","🐐 Centre d'élevage de Wanar","🏨 Éco-lodge Tourisme Solidaire"]; let idx=0; mapDiv.addEventListener('click',()=>{ feedback.innerText=`📍 ${points[idx%points.length]} (cliquez pour voir les projets)`; idx++; }); }
+    document.getElementById('closeModal')?.addEventListener('click',()=> document.getElementById('modal').style.display='none'); window.onclick=(e)=>{ if(e.target===document.getElementById('modal')) document.getElementById('modal').style.display='none'; };
 </script>
-
 </body>
 </html>
