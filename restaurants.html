@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurants & Réservations — Saint-Louis Tours</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ⚠️ Identique à hotels.html — collez le même bloc <style> puis les règles ci-dessous */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --navy:#0d2244; --navy-light:#1a3560; --gold:#c8a02e; --gold-bright:#e8b830; --blue-btn:#1e4fa3; --blue-hover:#163d8a; --green:#22a55b; --white:#fff; --gray-bg:#f5f6fa; --gray-light:#eef0f5; --gray-text:#666; --gray-dark:#333; --sidebar-w:210px; --font-main:'Source Sans 3',sans-serif; --font-display:'Playfair Display',serif; }
+  body { font-family:var(--font-main); background:var(--gray-bg); color:var(--gray-dark); display:flex; min-height:100vh; font-size:14px; }
+  .sidebar { width:var(--sidebar-w); background:var(--navy); color:var(--white); display:flex; flex-direction:column; position:fixed; top:0; left:0; bottom:0; overflow-y:auto; z-index:100; }
+  .sidebar-logo { padding:18px 16px 12px; border-bottom:1px solid rgba(255,255,255,.1); }
+  .logo-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .logo-icon { width:40px; height:40px; background:var(--gold); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:20px; }
+  .logo-text h1 { font-family:var(--font-display); font-size:16px; font-weight:700; }
+  .logo-text span { font-family:var(--font-display); font-size:14px; color:var(--gold); font-style:italic; }
+  .sidebar-tagline { font-size:11px; color:rgba(255,255,255,.6); margin-top:4px; }
+  .sidebar-nav { padding:12px 0; flex:1; }
+  .nav-item { display:flex; align-items:center; gap:12px; padding:10px 16px; color:rgba(255,255,255,.8); cursor:pointer; font-size:13.5px; }
+  .nav-item:hover { background:rgba(255,255,255,.08); }
+  .nav-item.active { background:var(--blue-btn); color:var(--white); font-weight:600; }
+  .nav-item .nav-icon { width:18px; text-align:center; font-size:15px; }
+  .sidebar-banner { margin:12px; border-radius:10px; overflow:hidden; position:relative; height:130px; background:linear-gradient(135deg,#1a3560,#0d1f3c); }
+  .sidebar-banner img { width:100%; height:100%; object-fit:cover; opacity:.5; position:absolute; inset:0; }
+  .sidebar-banner-text { position:absolute; bottom:0; left:0; right:0; padding:10px 12px; background:linear-gradient(transparent,rgba(0,0,0,.7)); }
+  .sidebar-banner-text p { font-size:11px; color:rgba(255,255,255,.7); }
+  .sidebar-banner-text strong { font-size:14px; color:var(--gold); font-family:var(--font-display); display:block; }
+  .sidebar-banner-text small { font-size:10px; color:rgba(255,255,255,.6); }
+  .main-wrapper { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; min-height:100vh; }
+  .topbar { background:var(--white); border-bottom:1px solid #e0e4ed; padding:0 24px; height:56px; display:flex; align-items:center; gap:20px; position:sticky; top:0; z-index:90; }
+  .search-box { flex:0 0 260px; position:relative; }
+  .search-box input { width:100%; padding:8px 36px 8px 14px; border:1px solid #d0d5e8; border-radius:8px; font-size:13px; background:var(--gray-bg); outline:none; }
+  .search-icon { position:absolute; right:10px; top:50%; transform:translateY(-50%); color:#999; }
+  .top-nav { display:flex; gap:24px; flex:1; justify-content:center; }
+  .top-nav a { text-decoration:none; color:var(--gray-text); font-size:14px; padding:4px 0; border-bottom:2px solid transparent; }
+  .top-nav a.active { color:var(--navy); border-bottom-color:var(--navy); font-weight:600; }
+  .topbar-right { display:flex; align-items:center; gap:14px; margin-left:auto; }
+  .notif-btn { width:34px; height:34px; border-radius:50%; border:1px solid #e0e4ed; background:var(--gray-bg); display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  .account-btn { display:flex; align-items:center; gap:8px; padding:6px 12px; border:1px solid #e0e4ed; border-radius:20px; cursor:pointer; font-size:13px; color:var(--navy); background:var(--white); }
+  .account-icon { width:26px; height:26px; background:var(--navy); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--white); font-size:12px; }
+  .content-area { display:flex; flex:1; }
+  .main-content { flex:1; padding:20px 20px 24px; }
+  .page-hero { border-radius:14px; overflow:hidden; position:relative; height:200px; margin-bottom:24px; background:linear-gradient(135deg,#1a3560,#0b1d3a 60%,#0d2244); display:flex; align-items:center; }
+  .page-hero-bg { position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80') center/cover; opacity:.35; }
+  .page-hero-content { position:relative; z-index:2; padding:0 40px; }
+  .breadcrumb { color:var(--gold-bright); font-size:12.5px; font-weight:600; margin-bottom:8px; }
+  .breadcrumb a { color:rgba(255,255,255,.7); text-decoration:none; }
+  .page-hero h1 { font-family:var(--font-display); font-size:34px; font-weight:700; color:var(--white); }
+  .page-hero p { color:rgba(255,255,255,.82); font-size:13.5px; margin-top:8px; max-width:560px; }
+
+  .booking-bar { background:var(--white); border:1px solid #e8eaf2; border-radius:12px; padding:16px; display:grid; grid-template-columns:2fr 1fr 1fr 1fr auto; gap:12px; align-items:end; margin-bottom:22px; }
+  .booking-field label { display:block; font-size:11px; font-weight:600; color:var(--navy); margin-bottom:5px; text-transform:uppercase; letter-spacing:.4px; }
+  .booking-field input, .booking-field select { width:100%; padding:9px 11px; border:1px solid #d0d5e8; border-radius:8px; font-size:12.5px; background:var(--white); outline:none; color:var(--gray-dark); }
+  .btn-search { padding:10px 22px; background:var(--gold); color:var(--white); border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap; }
+
+  .restaurants-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .resto-card { background:var(--white); border:1px solid #e8eaf2; border-radius:12px; overflow:hidden; transition:box-shadow .2s; display:flex; flex-direction:column; }
+  .resto-card:hover { box-shadow:0 6px 20px rgba(0,0,0,.1); }
+  .resto-img { width:100%; height:140px; object-fit:cover; }
+  .resto-body { padding:14px; flex:1; display:flex; flex-direction:column; }
+  .resto-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px; }
+  .resto-title { font-size:15px; font-weight:700; color:var(--navy); }
+  .resto-stars { color:var(--gold); font-size:11px; }
+  .resto-cuisine { font-size:11px; color:var(--blue-btn); font-weight:600; margin-bottom:6px; }
+  .resto-desc { font-size:12px; color:var(--gray-text); line-height:1.5; margin-bottom:10px; flex:1; }
+  .resto-footer { display:flex; justify-content:space-between; align-items:center; }
+  .resto-price { font-size:12px; color:var(--gray-text); }
+  .resto-price strong { color:var(--navy); }
+  .btn-reserver-big { padding:7px 16px; background:var(--blue-btn); color:var(--white); border:none; border-radius:6px; font-size:12px; font-weight:600; cursor:pointer; }
+  .btn-reserver-big:hover { background:var(--blue-hover); }
+
+  .right-panel { width:280px; flex-shrink:0; padding:20px 16px 0; }
+  .info-box { background:var(--white); border-radius:12px; border:1px solid #e8eaf2; padding:16px; margin-bottom:16px; }
+  .info-box h2 { font-size:16px; font-weight:700; color:var(--navy); margin-bottom:12px; }
+  .info-row { display:flex; gap:10px; margin-bottom:12px; }
+  .info-icon { width:34px; height:34px; background:#e8f0fd; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+  .info-row strong { display:block; font-size:12.5px; color:var(--navy); margin-bottom:2px; }
+  .info-row span { font-size:11.5px; color:var(--gray-text); line-height:1.4; }
+  .site-footer { background:var(--navy); color:var(--white); padding:36px 24px 20px; }
+  .footer-grid { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr 1.2fr; gap:28px; margin-bottom:28px; }
+  .footer-brand h3 { font-family:var(--font-display); font-size:18px; }
+  .footer-brand h3 span { color:var(--gold); font-style:italic; display:block; font-size:14px; }
+  .footer-brand p { font-size:12px; color:rgba(255,255,255,.6); margin-top:8px; line-height:1.6; }
+  .footer-social { display:flex; gap:10px; margin-top:14px; }
+  .social-btn { width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:13px; }
+  .footer-col h4 { font-size:14px; font-weight:700; margin-bottom:12px; }
+  .footer-col ul { list-style:none; }
+  .footer-col ul li { font-size:12px; color:rgba(255,255,255,.6); margin-bottom:7px; cursor:pointer; }
+  .footer-contact-item { display:flex; align-items:flex-start; gap:8px; margin-bottom:8px; font-size:12px; color:rgba(255,255,255,.7); }
+  .footer-contact-item span { color:var(--gold); }
+  .newsletter-input { display:flex; margin-top:10px; }
+  .newsletter-input input { flex:1; padding:9px 12px; border:none; border-radius:8px 0 0 8px; font-size:12px; background:rgba(255,255,255,.1); color:var(--white); outline:none; }
+  .newsletter-input button { padding:9px 14px; background:var(--gold); color:var(--white); border:none; border-radius:0 8px 8px 0; font-size:12.5px; font-weight:700; cursor:pointer; }
+  .footer-bottom { border-top:1px solid rgba(255,255,255,.12); padding-top:16px; text-align:center; font-size:11.5px; color:rgba(255,255,255,.45); }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-row"><div class="logo-icon">🏛️</div><div class="logo-text"><h1>Saint-Louis</h1><span>Tours</span></div></div>
+    <p class="sidebar-tagline">Découvrez. Réservez. Vivez Saint-Louis.</p>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-item" onclick="location.href='index.html'"><span class="nav-icon">🏠</span> Accueil</div>
+    <div class="nav-item" onclick="location.href='historique.html'"><span class="nav-icon">🏛</span> Historique de Saint-Louis</div>
+    <div class="nav-item" onclick="location.href='activites.html'"><span class="nav-icon">🎯</span> Activités</div>
+    <div class="nav-item" onclick="location.href='zones.html'"><span class="nav-icon">📍</span> Zones touristiques</div>
+    <div class="nav-item" onclick="location.href='hotels.html'"><span class="nav-icon">🛏</span> Hôtels &amp; Réservations</div>
+    <div class="nav-item active"><span class="nav-icon">🍽</span> Restaurants &amp; Réservations</div>
+    <div class="nav-item" onclick="location.href='offres.html'"><span class="nav-icon">💼</span> Offres</div>
+    <div class="nav-item" onclick="location.href='partenaires.html'"><span class="nav-icon">🤝</span> Partenaires</div>
+    <div class="nav-item" onclick="location.href='evenements.html'"><span class="nav-icon">📅</span> Événements</div>
+    <div class="nav-item" onclick="location.href='actualites.html'"><span class="nav-icon">📰</span> Actualités</div>
+    <div class="nav-item" onclick="location.href='apropos.html'"><span class="nav-icon">ℹ️</span> À propos</div>
+    <div class="nav-item" onclick="location.href='contact.html'"><span class="nav-icon">📞</span> Contact</div>
+  </nav>
+  <div class="sidebar-banner">
+    <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=400&q=80" alt="Pont Faidherbe">
+    <div class="sidebar-banner-text"><p>Découvrez la beauté</p><strong>de Saint-Louis</strong><small>Entre histoire, culture et modernité.</small></div>
+  </div>
+</aside>
+
+<div class="main-wrapper">
+  <header class="topbar">
+    <div class="search-box"><input type="text" placeholder="Rechercher un restaurant..."><span class="search-icon">🔍</span></div>
+    <nav class="top-nav">
+      <a href="index.html">Accueil</a><a href="apropos.html">À propos</a>
+      <a href="evenements.html">Événements</a><a href="actualites.html">Actualités</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="topbar-right">
+      <div class="notif-btn">🔔</div>
+      <div class="account-btn"><div class="account-icon">👤</div>Mon compte ▾</div>
+    </div>
+  </header>
+
+  <div class="content-area">
+    <main class="main-content">
+      <div class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="page-hero-content">
+          <div class="breadcrumb"><a href="index.html">Accueil</a> › Restaurants &amp; Réservations</div>
+          <h1>Restaurants &amp; Réservations</h1>
+          <p>Savourez la cuisine locale et internationale dans les meilleures tables de Saint-Louis.</p>
+        </div>
+      </div>
+
+      <div class="booking-bar">
+        <div class="booking-field"><label>Restaurant / Cuisine</label><input type="text" placeholder="Nom ou type de cuisine"></div>
+        <div class="booking-field"><label>Date</label><input type="date"></div>
+        <div class="booking-field"><label>Heure</label><input type="time" value="20:00"></div>
+        <div class="booking-field"><label>Personnes</label><select><option>2 personnes</option><option>3 personnes</option><option>4 personnes</option><option>5+</option></select></div>
+        <button class="btn-search">🔍 Réserver</button>
+      </div>
+
+      <div class="restaurants-grid">
+        <div class="resto-card">
+          <img class="resto-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80" alt="Le Ramata">
+          <div class="resto-body">
+            <div class="resto-head"><div class="resto-title">Le Ramata</div><div class="resto-stars">★★★★★</div></div>
+            <div class="resto-cuisine">Cuisine sénégalaise &amp; fruits de mer</div>
+            <div class="resto-desc">Table raffinée au bord du fleuve, spécialités de poissons grillés et thaïboudienne.</div>
+            <div class="resto-footer"><div class="resto-price">Moy. <strong>15 000 FCFA</strong>/pers</div><button class="btn-reserver-big">Réserver</button></div>
+          </div>
+        </div>
+        <div class="resto-card">
+          <img class="resto-img" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&q=80" alt="Le Dakar 32">
+          <div class="resto-body">
+            <div class="resto-head"><div class="resto-title">Le Dakar 32</div><div class="resto-stars">★★★★☆</div></div>
+            <div class="resto-cuisine">Cuisine internationale</div>
+            <div class="resto-desc">Ambiance conviviale, carte variée mêlant saveurs africaines et européennes.</div>
+            <div class="resto-footer"><div class="resto-price">Moy. <strong>12 000 FCFA</strong>/pers</div><button class="btn-reserver-big">Réserver</button></div>
+          </div>
+        </div>
+        <div class="resto-card">
+          <img class="resto-img" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=80" alt="La Terrasse">
+          <div class="resto-body">
+            <div class="resto-head"><div class="resto-title">La Terrasse</div><div class="resto-stars">★★★★☆</div></div>
+            <div class="resto-cuisine">Tapas &amp; cocktails</div>
+            <div class="resto-desc">Rooftop avec vue sur l'île, idéal pour un dîner léger ou un apéritif au coucher du soleil.</div>
+            <div class="resto-footer"><div class="resto-price">Moy. <strong>9 000 FCFA</strong>/pers</div><button class="btn-reserver-big">Réserver</button></div>
+          </div>
+        </div>
+        <div class="resto-card">
+          <img class="resto-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80" alt="Le Fleuve">
+          <div class="resto-body">
+            <div class="resto-head"><div class="resto-title">Le Fleuve</div><div class="resto-stars">★★★★★</div></div>
+            <div class="resto-cuisine">Gastronomie locale</div>
+            <div class="resto-desc">Produits frais du fleuve et de la mer, préparés selon les traditions culinaires de Saint-Louis.</div>
+            <div class="resto-footer"><div class="resto-price">Moy. <strong>18 000 FCFA</strong>/pers</div><button class="btn-reserver-big">Réserver</button></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="right-panel">
+      <div class="info-box">
+        <h2>Bon à savoir</h2>
+        <div class="info-row"><div class="info-icon">🕐</div><div><strong>Horaires</strong><span>Déj. 12h–15h · Dîner 19h–23h</span></div></div>
+        <div class="info-row"><div class="info-icon">📅</div><div><strong>Réservation</strong><span>Conseillée le week-end</span></div></div>
+        <div class="info-row"><div class="info-icon">💳</div><div><strong>Paiement</strong><span>Espèces &amp; carte acceptées</span></div></div>
+      </div>
+      <div class="info-box">
+        <h2>Spécialités locales</h2>
+        <div class="info-row"><div class="info-icon">🐟</div><div><strong>Thiéboudienne</strong><span>Riz rouge au poisson</span></div></div>
+        <div class="info-row"><div class="info-icon">🦐</div><div><strong>Crevettes</strong><span>Grillées ou sauce</span></div></div>
+        <div class="info-row"><div class="info-icon">🍲</div><div><strong>Mafé</strong><span>Sauce arachide</span></div></div>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand"><h3>Saint-Louis <span>Tours</span></h3><p>Votre compagnon idéal pour découvrir Saint-Louis et vivre des expériences inoubliables.</p><div class="footer-social"><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">𝕏</div><div class="social-btn">▶</div></div></div>
+      <div class="footer-col"><h4>Liens rapides</h4><ul><li>Accueil</li><li>Historique</li><li>Activités</li><li>Zones touristiques</li><li>Événements</li></ul></div>
+      <div class="footer-col"><h4>Informations</h4><ul><li>À propos</li><li>Partenaires</li><li>Actualités</li><li>FAQ</li><li>Contact</li></ul></div>
+      <div class="footer-col"><h4>Contactez-nous</h4><div class="footer-contact-item"><span>📍</span> Rue Abdoulaye Nder, Saint-Louis</div><div class="footer-contact-item"><span>📞</span> +221 33 961 10 10</div><div class="footer-contact-item"><span>✉️</span> contact@saintlouis-tours.sn</div></div>
+      <div class="footer-col"><h4>Newsletter</h4><div class="newsletter-input"><input type="email" placeholder="Votre email"><button>S'abonner</button></div></div>
+    </div>
+    <div class="footer-bottom">© 2024 Saint-Louis Tours | Tous droits réservés</div>
+  </footer>
+</div>
+</body>
+</html>

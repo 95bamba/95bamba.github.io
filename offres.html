@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Offres — Saint-Louis Tours</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d2244;
+    --navy-light: #1a3560;
+    --gold: #c8a02e;
+    --gold-bright: #e8b830;
+    --blue-btn: #1e4fa3;
+    --blue-hover: #163d8a;
+    --green: #22a55b;
+    --white: #ffffff;
+    --gray-bg: #f5f6fa;
+    --gray-light: #eef0f5;
+    --gray-text: #666;
+    --gray-dark: #333;
+    --sidebar-w: 210px;
+    --font-main: 'Source Sans 3', sans-serif;
+    --font-display: 'Playfair Display', serif;
+  }
+
+  body {
+    font-family: var(--font-main);
+    background: var(--gray-bg);
+    color: var(--gray-dark);
+    display: flex;
+    min-height: 100vh;
+    font-size: 14px;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--navy);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .sidebar-logo {
+    padding: 18px 16px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--gold);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .logo-text h1 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--white);
+  }
+
+  .logo-text span {
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .sidebar-tagline {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+  }
+
+  .sidebar-nav {
+    padding: 12px 0;
+    flex: 1;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 13.5px;
+  }
+
+  .nav-item:hover { background: rgba(255,255,255,0.08); }
+
+  .nav-item.active {
+    background: var(--blue-btn);
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .nav-item .nav-icon {
+    width: 18px;
+    text-align: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-banner {
+    margin: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    height: 130px;
+    background: linear-gradient(135deg, #1a3560 0%, #0d1f3c 100%);
+  }
+
+  .sidebar-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    position: absolute;
+    inset: 0;
+  }
+
+  .sidebar-banner-text {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 10px 12px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  }
+
+  .sidebar-banner-text p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 2px;
+  }
+
+  .sidebar-banner-text strong {
+    font-size: 14px;
+    color: var(--gold);
+    font-family: var(--font-display);
+    display: block;
+    line-height: 1.2;
+  }
+
+  .sidebar-banner-text small {
+    font-size: 10px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===== MAIN WRAPPER ===== */
+  .main-wrapper {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* ===== TOPBAR ===== */
+  .topbar {
+    background: var(--white);
+    border-bottom: 1px solid #e0e4ed;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+  }
+
+  .search-box {
+    flex: 0 0 260px;
+    position: relative;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 8px 36px 8px 14px;
+    border: 1px solid #d0d5e8;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #666;
+    outline: none;
+    background: var(--gray-bg);
+  }
+
+  .search-box input:focus { border-color: var(--blue-btn); }
+
+  .search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 14px;
+  }
+
+  .top-nav {
+    display: flex;
+    gap: 24px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .top-nav a {
+    text-decoration: none;
+    color: var(--gray-text);
+    font-size: 14px;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .top-nav a.active {
+    color: var(--navy);
+    border-bottom-color: var(--navy);
+    font-weight: 600;
+  }
+
+  .top-nav a:hover { color: var(--navy); }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-left: auto;
+  }
+
+  .notif-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid #e0e4ed;
+    background: var(--gray-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--gray-text);
+  }
+
+  .account-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border: 1px solid #e0e4ed;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--navy);
+    background: var(--white);
+  }
+
+  .account-icon {
+    width: 26px;
+    height: 26px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 12px;
+  }
+
+  /* ===== CONTENT AREA ===== */
+  .content-area {
+    display: flex;
+    flex: 1;
+    gap: 0;
+  }
+
+  .main-content {
+    flex: 1;
+    padding: 20px 20px 24px;
+    overflow: hidden;
+  }
+
+  /* ===== PAGE HERO ===== */
+  .page-hero {
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    height: 200px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #1a3560 0%, #0b1d3a 60%, #0d2244 100%);
+    display: flex;
+    align-items: center;
+  }
+
+  .page-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=80') center/cover no-repeat;
+    opacity: 0.35;
+  }
+
+  .page-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 40px;
+  }
+
+  .breadcrumb {
+    color: var(--gold-bright);
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .breadcrumb a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover { color: var(--white); }
+
+  .page-hero h1 {
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  .page-hero p {
+    color: rgba(255,255,255,0.82);
+    font-size: 13.5px;
+    margin-top: 8px;
+    max-width: 560px;
+  }
+
+  /* ===== TABS DYNAMIQUES ===== */
+  .main-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .main-tab {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #e0e4ed;
+    background: var(--white);
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--navy);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    font-family: var(--font-main);
+  }
+
+  .main-tab:hover { border-color: var(--navy); }
+
+  .main-tab.active {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+  }
+
+  .tab-count {
+    background: rgba(0,0,0,0.08);
+    color: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    min-width: 22px;
+    text-align: center;
+  }
+
+  .main-tab.active .tab-count {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* ===== LISTE OFFRES ===== */
+  .offres-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .offre-card {
+    background: var(--white);
+    border: 1px solid #e8eaf2;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    gap: 14px;
+    transition: box-shadow 0.2s, transform 0.2s;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .offre-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .offre-icon-lg {
+    width: 48px;
+    height: 48px;
+    background: #e8f4ec;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .offre-icon-lg.icon-concours { background: #fff3e0; }
+  .offre-icon-lg.icon-examens { background: #e8f0fd; }
+
+  .offre-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .offre-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .offre-title-lg {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .badge-new {
+    background: var(--green);
+    color: var(--white);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .offre-date {
+    font-size: 11px;
+    color: var(--gray-text);
+    white-space: nowrap;
+  }
+
+  .offre-org-lg {
+    font-size: 12px;
+    color: var(--gray-text);
+    margin-bottom: 8px;
+  }
+
+  .offre-tags {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .tag-cdi {
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: #e8f0fd;
+    color: var(--blue-btn);
+  }
+
+  .tag-cdd {
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: #fff3e0;
+    color: #e07800;
+  }
+
+  .tag-loc {
+    font-size: 11px;
+    color: var(--gray-text);
+  }
+
+  .btn-postuler {
+    padding: 7px 16px;
+    background: var(--blue-btn);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    align-self: center;
+    white-space: nowrap;
+    transition: background 0.2s;
+    font-family: var(--font-main);
+  }
+
+  .btn-postuler:hover { background: var(--blue-hover); }
+
+  /* État vide */
+  .empty-state {
+    background: var(--white);
+    border: 1px dashed #d0d5e8;
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--gray-text);
+    font-size: 13.5px;
+  }
+
+  .empty-state .empty-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  /* ===== RIGHT PANEL ===== */
+  .right-panel {
+    width: 280px;
+    flex-shrink: 0;
+    padding: 20px 16px 0;
+  }
+
+  .info-box {
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid #e8eaf2;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .info-box h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+
+  .info-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .info-icon {
+    width: 34px;
+    height: 34px;
+    background: #e8f0fd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .info-row strong {
+    display: block;
+    font-size: 12.5px;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+
+  .info-row span {
+    font-size: 11.5px;
+    color: var(--gray-text);
+    line-height: 1.4;
+  }
+
+  /* ===== FOOTER ===== */
+  .site-footer {
+    background: var(--navy);
+    color: var(--white);
+    padding: 36px 24px 20px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr 1.2fr;
+    gap: 28px;
+    margin-bottom: 28px;
+  }
+
+  .footer-brand h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--white);
+  }
+
+  .footer-brand h3 span {
+    color: var(--gold);
+    font-style: italic;
+    display: block;
+    font-size: 14px;
+  }
+
+  .footer-brand p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .social-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--white);
+    transition: background 0.2s;
+  }
+
+  .social-btn:hover { background: rgba(255,255,255,0.2); }
+
+  .footer-col h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col ul li {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 7px;
+    cursor: pointer;
+  }
+
+  .footer-col ul li:hover { color: var(--white); }
+
+  .footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .footer-contact-item span { color: var(--gold); font-size: 13px; margin-top: 1px; }
+
+  .newsletter-input {
+    display: flex;
+    gap: 0;
+    margin-top: 10px;
+  }
+
+  .newsletter-input input {
+    flex: 1;
+    padding: 9px 12px;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    font-size: 12px;
+    outline: none;
+    background: rgba(255,255,255,0.1);
+    color: var(--white);
+  }
+
+  .newsletter-input input::placeholder { color: rgba(255,255,255,0.4); }
+
+  .newsletter-input button {
+    padding: 9px 14px;
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    border-radius: 0 8px 8px 0;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 16px;
+    text-align: center;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.45);
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-row">
+      <div class="logo-icon">🏛️</div>
+      <div class="logo-text">
+        <h1>Saint-Louis</h1>
+        <span>Tours</span>
+      </div>
+    </div>
+    <p class="sidebar-tagline">Découvrez. Réservez. Vivez Saint-Louis.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-item" onclick="location.href='table.html'">
+      <span class="nav-icon">🏠</span> Accueil
+    </div>
+    <div class="nav-item" onclick="location.href='historique.html'">
+      <span class="nav-icon">🏛</span> Historique de Saint-Louis
+    </div>
+    <div class="nav-item" onclick="location.href='activites.html'">
+      <span class="nav-icon">🎯</span> Activités
+    </div>
+    <div class="nav-item" onclick="location.href='zones.html'">
+      <span class="nav-icon">📍</span> Zones touristiques
+    </div>
+    <div class="nav-item" onclick="location.href='hotels.html'">
+      <span class="nav-icon">🛏</span> Hôtels &amp; Réservations
+    </div>
+    <div class="nav-item" onclick="location.href='restaurants.html'">
+      <span class="nav-icon">🍽</span> Restaurants &amp; Réservations
+    </div>
+    <div class="nav-item active" onclick="location.href='offres.html'">
+      <span class="nav-icon">💼</span> Offres<br>
+      <small style="margin-left:30px;font-size:10px;color:rgba(255,255,255,0.5);">Emplois, Concours, Examens</small>
+    </div>
+    <div class="nav-item" onclick="location.href='partenaires.html'">
+      <span class="nav-icon">🤝</span> Partenaires
+    </div>
+    <div class="nav-item" onclick="location.href='evenements.html'">
+      <span class="nav-icon">📅</span> Événements
+    </div>
+    <div class="nav-item" onclick="location.href='actualites.html'">
+      <span class="nav-icon">📰</span> Actualités
+    </div>
+    <div class="nav-item" onclick="location.href='apropos.html'">
+      <span class="nav-icon">ℹ️</span> À propos
+    </div>
+    <div class="nav-item" onclick="location.href='contact.html'">
+      <span class="nav-icon">📞</span> Contact
+    </div>
+  </nav>
+
+  <div class="sidebar-banner">
+    <img src="https://images.unsplash.com/photo-1580740405468-5e0e0e0e0e0e?w=400&q=80" alt="Pont Faidherbe, Saint-Louis" onerror="this.style.display='none'">
+    <div class="sidebar-banner-text">
+      <p>Découvrez la beauté</p>
+      <strong>de Saint-Louis</strong>
+      <small>Entre histoire, culture et modernité.</small>
+    </div>
+  </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<div class="main-wrapper">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="search-box">
+      <input type="text" placeholder="Rechercher une offre...">
+      <span class="search-icon">🔍</span>
+    </div>
+    <nav class="top-nav">
+      <a href="table.html">Accueil</a>
+      <a href="apropos.html">À propos</a>
+      <a href="evenements.html">Événements</a>
+      <a href="actualites.html">Actualités</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="topbar-right">
+      <div class="notif-btn">🔔</div>
+      <div class="account-btn">
+        <div class="account-icon">👤</div>
+        Mon compte ▾
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="content-area">
+    <main class="main-content">
+
+      <!-- PAGE HERO -->
+      <div class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="page-hero-content">
+          <div class="breadcrumb"><a href="table.html">Accueil</a> › Offres</div>
+          <h1>Offres &amp; Opportunités</h1>
+          <p>Emplois, concours et examens à Saint-Louis — toutes les opportunités au même endroit.</p>
+        </div>
+      </div>
+
+      <!-- TABS DYNAMIQUES -->
+      <div class="main-tabs" role="tablist">
+        <button class="main-tab active" data-tab="emplois" role="tab" aria-selected="true">
+          💼 Emplois <span class="tab-count" id="count-emplois">0</span>
+        </button>
+        <button class="main-tab" data-tab="concours" role="tab" aria-selected="false">
+          🏆 Concours <span class="tab-count" id="count-concours">0</span>
+        </button>
+        <button class="main-tab" data-tab="examens" role="tab" aria-selected="false">
+          📋 Examens <span class="tab-count" id="count-examens">0</span>
+        </button>
+      </div>
+
+      <!-- LISTE DES OFFRES (filtrée dynamiquement) -->
+      <div class="offres-list" id="offres-list">
+
+        <!-- ===== EMPLOIS ===== -->
+        <div class="offre-card" data-category="emplois">
+          <div class="offre-icon-lg">💼</div>
+          <div class="offre-content">
+            <div class="offre-head">
+              <div class="offre-title-lg">Agent d'Accueil touristique <span class="badge-new">Nouveau</span></div>
+              <div class="offre-date">31 Mai 2024</div>
+            </div>
+            <div class="offre-org-lg">Mairie de Saint-Louis</div>
+            <div class="offre-tags"><span class="tag-cdi">CDI</span><span class="tag-loc">📍 Saint-Louis</span></div>
+          </div>
+          <button class="btn-postuler" onclick="postuler('Agent d\'Accueil touristique')">Postuler</button>
+        </div>
+
+        <div class="offre-card" data-category="emplois">
+          <div class="offre-icon-lg">💼</div>
+          <div class="offre-content">
+            <div class="offre-head">
+              <div class="offre-title-lg">Guide touristique <span class="badge-new">Nouveau</span></div>
+              <div class="offre-date">28 Mai 2024</div>
+            </div>
+            <div class="offre-org-lg">Office du Tourisme de Saint-Louis</div>
+            <div class="offre-tags"><span class="tag-cdd">CDD</span><span class="tag-loc">📍 Saint-Louis</span></div>
+          </div>
+          <button class="btn-postuler" onclick="postuler('Guide touristique')">Postuler</button>
+        </div>
+
+        <div class="offre-card" data-category="emplois">
+          <div class="offre-icon-lg">💼</div>
+          <div class="offre-content">
+            <div class="offre-head">
+              <div class="offre-title-lg">Chargé de communication <span class="badge-new">Nouveau</span></div>
+              <div class="offre-date">25 Mai 2024</div>
+            </div>
+            <div class="offre-org-lg">Comité d'Organisation du Festival</div>
+            <div class="offre-tags"><span class="tag-cdd">CDD</span><span class="tag-loc">📍 Saint-Louis</span></div>
+          </div>
+          <button class="btn-postuler" onclick="postuler('Chargé de communication')">Postuler</button>
+        </div>
+
+        <div class="offre-card" data-category="emplois">
+          <div class="offre-icon-lg">💼</div>
+          <div class="offre-content">
+            <div class="offre-head">
+              <div class="offre-title-lg">Réceptionniste hôtelier</div>
+              <div class="offre-date">20 Mai 2024</div>
+            </div>
+            <div class="offre-org-lg">Hôtel La Résidence</div>
+            <div class="offre-tags"><span class="tag-cdi">CDI</span><span class="tag-loc">📍 Saint-Louis</span></div>
+          </div>
+          <button class="btn-postuler" onclick="postuler('Réceptionniste hôtelier')">Postuler</button>
+        </div>
+
+        <div class="offre-card" data-category="emplois">
+          <div class="offre-icon-lg">💼</div>
+          <div class="offre-content">
+            <div class="offre-head">
+              <div class="offre-title-lg">Serveur / Serveuse</div>
+              <div class="offre-date">18 Mai 2024</div>
+            </div>
+            <div class="offre-org-lg">Restaurant Le Fleuve</div>
+            <div class="offre-tags"><span class="tag-cdd">CDD</span><span class="tag-loc">📍 Saint-Louis</span></div>
+          </div>
+          <button class="btn-postuler" onclick="postuler('Serveur / Serveuse')">Postuler</button>
+        </div>
+
+        <!-- ===== CONCOURS ===== -->
+        <div class="offre-card" data-category="concours">
+          <div class="offre-icon-lg icon-concours">🏆</div>
+          <div class="offre-content">
+            <div class="offre-head">
+              <div class="offre-title-lg">Concours d'entrée à l'ENACT <span class="badge-new">Nouveau</span></div>
+              <div class="offre-date">15 Juin 2024</div>
+            </div>
+            <div class="offre-org-lg">École Nationale d'Administration du Sénégal</div>
+            <div class="offre-tags"><span class="tag-cdi">Fonction publique</span><span class="tag-loc">📍 Dakar / Saint-Louis</span></div>
+          </div>
+          <button class="btn-postuler" onclick="postuler('Concours ENACT')">S'inscrire</button>
+        </div>
+
+        <div class="offre-card" data-category="concours">
+          <div class="offre-icon-lg icon-concours">🏆</div>
+          <div class="offre-content">
+            <div class="offre-head">
+              <div class="offre-title-lg">Concours de la Fonction Publique Locale</div>
+              <div class="offre-date">10 Juin 2024</div>
+            </div>
+            <div class="offre-org-lg">Mairie de Saint-Louis</div>
+            <div class="offre-tags"><span class="tag-cdd">Collectivités</span><span class="tag-loc">📍 Saint-Louis</span></div>
+          </div>
+          <button class="btn-postuler" onclick="postuler('Concours Fonction Publique Locale')">S'inscrire</button>
+        </div>
+
+        <div class="offre-card" data-category="concours">
+          <div class="offre-icon-lg icon-concours">🏆</div>
+          <div class="offre-content">
+            <div class="offre-head">
+              <div class="offre-title-lg">Concours d'entrée à l'École du Tourisme</div>
+              <div class="offre-date">05 Juin 2024</div>
+            </div>
+            <div class="offre-org-lg">Ministère du Tourisme</div>
+            <div class="offre-tags"><span class="tag-cdi">Formation</span><span class="tag-loc">📍 Saint-Louis</span></div>
+          </div>
+          <button class="btn-postuler" onclick="postuler('Concours École du Tourisme')">S'inscrire</button>
+        </div>
+
+        <!-- ===== EXAMENS ===== -->
+        <div class="offre-card" data-category="examens">
+          <div class="offre-icon-lg icon-examens">📋</div>
+          <div class="offre-content">
+            <div class="offre-head">
+              <div class="offre-title-lg">Examen du Baccalauréat 2024 <span class="badge-new">Nouveau</span></div>
+              <div class="offre-date">02 Juillet 2024</div>
+            </div>
+            <div class="offre-org-lg">Ministère de l'Éducation Nationale</div>
+            <div class="offre-tags"><span class="tag-cdd">Officiel</span><span class="tag-loc">📍 Saint-Louis</span></div>
+          </div>
+          <button class="btn-postuler" onclick="postuler('Baccalauréat 2024')">Infos</button>
+        </div>
+
+        <div class="offre-card" data-category="examens">
+          <div class="offre-icon-lg icon-examens">📋</div>
+          <div class="offre-content">
+            <div class="offre-head">
+              <div class="offre-title-lg">Examen du BFEM 2024</div>
+              <div class="offre-date">28 Juin 2024</div>
+            </div>
+            <div class="offre-org-lg">Ministère de l'Éducation Nationale</div>
+            <div class="offre-tags"><span class="tag-cdd">Officiel</span><span class="tag-loc">📍 Saint-Louis</span></div>
+          </div>
+          <button class="btn-postuler" onclick="postuler('BFEM 2024')">Infos</button>
+        </div>
+
+        <div class="offre-card" data-category="examens">
+          <div class="offre-icon-lg icon-examens">📋</div>
+          <div class="offre-content">
+            <div class="offre-head">
+              <div class="offre-title-lg">Examen de fin de cycle primaire (CFEE)</div>
+              <div class="offre-date">20 Juin 2024</div>
+            </div>
+            <div class="offre-org-lg">Inspection d'Académie de Saint-Louis</div>
+            <div class="offre-tags"><span class="tag-cdd">Officiel</span><span class="tag-loc">📍 Saint-Louis</span></div>
+          </div>
+          <button class="btn-postuler" onclick="postuler('CFEE 2024')">Infos</button>
+        </div>
+
+      </div>
+
+      <!-- État vide (affiché si aucune offre) -->
+      <div class="empty-state" id="empty-state" style="display:none;">
+        <span class="empty-icon">📭</span>
+        Aucune offre disponible dans cette catégorie pour le moment.
+      </div>
+
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="right-panel">
+      <div class="info-box">
+        <h2>Postuler</h2>
+        <div class="info-row">
+          <div class="info-icon">📝</div>
+          <div><strong>CV &amp; lettre</strong><span>Préparez vos documents</span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📧</div>
+          <div><strong>Par email</strong><span>contact@saintlouis-tours.sn</span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">⏰</div>
+          <div><strong>Délai</strong><span>Avant clôture de l'offre</span></div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <h2>Conseils</h2>
+        <div class="info-row">
+          <div class="info-icon">✅</div>
+          <div><strong>CV à jour</strong><span>Adaptez-le à l'offre</span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">💡</div>
+          <div><strong>Lettre motivée</strong><span>Personnalisez chaque candidature</span></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Saint-Louis <span>Tours</span></h3>
+        <p>Votre compagnon idéal pour découvrir Saint-Louis et vivre des expériences inoubliables.</p>
+        <div class="footer-social">
+          <div class="social-btn">f</div>
+          <div class="social-btn">📸</div>
+          <div class="social-btn">𝕏</div>
+          <div class="social-btn">▶</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Liens rapides</h4>
+        <ul>
+          <li onclick="location.href='table.html'">Accueil</li>
+          <li onclick="location.href='historique.html'">Historique de la ville</li>
+          <li onclick="location.href='activites.html'">Activités</li>
+          <li onclick="location.href='zones.html'">Zones touristiques</li>
+          <li onclick="location.href='evenements.html'">Événements</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <ul>
+          <li onclick="location.href='apropos.html'">À propos de nous</li>
+          <li onclick="location.href='partenaires.html'">Partenaires</li>
+          <li onclick="location.href='actualites.html'">Actualités</li>
+          <li onclick="location.href='contact.html'">FAQ</li>
+          <li onclick="location.href='contact.html'">Contact</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contactez-nous</h4>
+        <div class="footer-contact-item"><span>📍</span> Rue Abdoulaye Nder, Saint-Louis, Sénégal</div>
+        <div class="footer-contact-item"><span>📞</span> +221 33 961 10 10</div>
+        <div class="footer-contact-item"><span>✉️</span> contact@saintlouis-tours.sn</div>
+        <div class="footer-contact-item"><span>🌐</span> www.saintlouis-tours.sn</div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:10px;">Abonnez-vous pour recevoir nos actualités et offres spéciales.</p>
+        <div class="newsletter-input">
+          <input type="email" placeholder="Votre adresse email">
+          <button>S'abonner</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2024 Saint-Louis Tours | Tous droits réservés
+    </div>
+  </footer>
+
+</div>
+
+<!-- ===== SCRIPT ONGLETS DYNAMIQUES ===== -->
+<script>
+  (function () {
+    const tabs = document.querySelectorAll('.main-tab');
+    const cards = document.querySelectorAll('.offre-card');
+    const emptyState = document.getElementById('empty-state');
+    const list = document.getElementById('offres-list');
+
+    // Compteurs par catégorie
+    const counts = { emplois: 0, concours: 0, examens: 0 };
+    cards.forEach(card => {
+      const cat = card.dataset.category;
+      if (counts[cat] !== undefined) counts[cat]++;
+    });
+
+    // Mise à jour des compteurs dans les onglets
+    Object.keys(counts).forEach(cat => {
+      const el = document.getElementById('count-' + cat);
+      if (el) el.textContent = counts[cat];
+    });
+
+    // Fonction de filtrage
+    function filterOffres(category) {
+      let visible = 0;
+      cards.forEach(card => {
+        const match = card.dataset.category === category;
+        card.style.display = match ? 'flex' : 'none';
+        if (match) visible++;
+      });
+
+      // État vide
+      emptyState.style.display = visible === 0 ? 'block' : 'none';
+      list.style.display = visible === 0 ? 'none' : 'flex';
+
+      // Activer l'onglet correspondant
+      tabs.forEach(t => {
+        const isActive = t.dataset.tab === category;
+        t.classList.toggle('active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      // Mettre à jour l'URL sans recharger
+      if (history.replaceState) {
+        history.replaceState(null, '', '#' + category);
+      }
+    }
+
+    // Écouteurs sur les onglets
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => filterOffres(tab.dataset.tab));
+    });
+
+    // Au chargement : lire le hash (#emplois, #concours, #examens)
+    const initialHash = location.hash.replace('#', '');
+    if (['emplois', 'concours', 'examens'].includes(initialHash)) {
+      filterOffres(initialHash);
+    } else {
+      filterOffres('emplois');
+    }
+
+    // Réagir aux changements de hash (ex: navigation depuis une autre page)
+    window.addEventListener('hashchange', () => {
+      const hash = location.hash.replace('#', '');
+      if (['emplois', 'concours', 'examens'].includes(hash)) {
+        filterOffres(hash);
+      }
+    });
+  })();
+
+  // Fonction de "postulation" (démo)
+  function postuler(titre) {
+    alert("Candidature pour : " + titre + "\n\nEnvoyez votre CV et lettre de motivation à :\ncontact@saintlouis-tours.sn");
+  }
+</script>
+
+</body>
+</html>

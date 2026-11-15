@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historique — Saint-Louis Tours</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:#0d2244; --navy-light:#1a3560; --gold:#c8a02e; --gold-bright:#e8b830;
+    --blue-btn:#1e4fa3; --blue-hover:#163d8a; --green:#22a55b; --white:#fff;
+    --gray-bg:#f5f6fa; --gray-light:#eef0f5; --gray-text:#666; --gray-dark:#333;
+    --sidebar-w:210px; --font-main:'Source Sans 3',sans-serif; --font-display:'Playfair Display',serif;
+  }
+  body { font-family:var(--font-main); background:var(--gray-bg); color:var(--gray-dark); display:flex; min-height:100vh; font-size:14px; }
+
+  /* SIDEBAR (identique) */
+  .sidebar { width:var(--sidebar-w); background:var(--navy); color:var(--white); display:flex; flex-direction:column; position:fixed; top:0; left:0; bottom:0; overflow-y:auto; z-index:100; }
+  .sidebar-logo { padding:18px 16px 12px; border-bottom:1px solid rgba(255,255,255,.1); }
+  .logo-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .logo-icon { width:40px; height:40px; background:var(--gold); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+  .logo-text h1 { font-family:var(--font-display); font-size:16px; font-weight:700; line-height:1.1; }
+  .logo-text span { font-family:var(--font-display); font-size:14px; color:var(--gold); font-style:italic; }
+  .sidebar-tagline { font-size:11px; color:rgba(255,255,255,.6); margin-top:4px; }
+  .sidebar-nav { padding:12px 0; flex:1; }
+  .nav-item { display:flex; align-items:center; gap:12px; padding:10px 16px; color:rgba(255,255,255,.8); cursor:pointer; transition:background .2s; font-size:13.5px; }
+  .nav-item:hover { background:rgba(255,255,255,.08); }
+  .nav-item.active { background:var(--blue-btn); color:var(--white); font-weight:600; }
+  .nav-item .nav-icon { width:18px; text-align:center; font-size:15px; flex-shrink:0; }
+  .sidebar-banner { margin:12px; border-radius:10px; overflow:hidden; position:relative; height:130px; background:linear-gradient(135deg,#1a3560,#0d1f3c); }
+  .sidebar-banner img { width:100%; height:100%; object-fit:cover; opacity:.5; position:absolute; inset:0; }
+  .sidebar-banner-text { position:absolute; bottom:0; left:0; right:0; padding:10px 12px; background:linear-gradient(transparent,rgba(0,0,0,.7)); }
+  .sidebar-banner-text p { font-size:11px; color:rgba(255,255,255,.7); margin-bottom:2px; }
+  .sidebar-banner-text strong { font-size:14px; color:var(--gold); font-family:var(--font-display); display:block; line-height:1.2; }
+  .sidebar-banner-text small { font-size:10px; color:rgba(255,255,255,.6); }
+
+  /* MAIN */
+  .main-wrapper { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; min-height:100vh; }
+  .topbar { background:var(--white); border-bottom:1px solid #e0e4ed; padding:0 24px; height:56px; display:flex; align-items:center; gap:20px; position:sticky; top:0; z-index:90; }
+  .search-box { flex:0 0 260px; position:relative; }
+  .search-box input { width:100%; padding:8px 36px 8px 14px; border:1px solid #d0d5e8; border-radius:8px; font-size:13px; background:var(--gray-bg); outline:none; }
+  .search-icon { position:absolute; right:10px; top:50%; transform:translateY(-50%); color:#999; }
+  .top-nav { display:flex; gap:24px; flex:1; justify-content:center; }
+  .top-nav a { text-decoration:none; color:var(--gray-text); font-size:14px; padding:4px 0; border-bottom:2px solid transparent; }
+  .top-nav a.active { color:var(--navy); border-bottom-color:var(--navy); font-weight:600; }
+  .topbar-right { display:flex; align-items:center; gap:14px; margin-left:auto; }
+  .notif-btn { width:34px; height:34px; border-radius:50%; border:1px solid #e0e4ed; background:var(--gray-bg); display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  .account-btn { display:flex; align-items:center; gap:8px; padding:6px 12px; border:1px solid #e0e4ed; border-radius:20px; cursor:pointer; font-size:13px; color:var(--navy); background:var(--white); }
+  .account-icon { width:26px; height:26px; background:var(--navy); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--white); font-size:12px; }
+
+  /* CONTENT */
+  .content-area { display:flex; flex:1; }
+  .main-content { flex:1; padding:20px 20px 24px; }
+  .page-hero { border-radius:14px; overflow:hidden; position:relative; height:200px; margin-bottom:24px; background:linear-gradient(135deg,#1a3560,#0b1d3a 60%,#0d2244); display:flex; align-items:center; }
+  .page-hero-bg { position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1580740405444-8b8b8b8b8b8b?w=1200&q=80') center/cover; opacity:.35; }
+  .page-hero-content { position:relative; z-index:2; padding:0 40px; }
+  .breadcrumb { color:var(--gold-bright); font-size:12.5px; font-weight:600; margin-bottom:8px; }
+  .breadcrumb a { color:rgba(255,255,255,.7); text-decoration:none; }
+  .page-hero h1 { font-family:var(--font-display); font-size:34px; font-weight:700; color:var(--white); line-height:1.1; }
+  .page-hero p { color:rgba(255,255,255,.82); font-size:13.5px; margin-top:8px; max-width:560px; }
+
+  /* TIMELINE */
+  .timeline-card { background:var(--white); border-radius:12px; border:1px solid #e8eaf2; padding:28px; margin-bottom:24px; }
+  .timeline-card h2 { font-size:20px; font-weight:700; color:var(--navy); margin-bottom:20px; font-family:var(--font-display); }
+  .timeline { position:relative; padding-left:28px; border-left:2px solid #e0e4ed; }
+  .tl-item { position:relative; margin-bottom:24px; }
+  .tl-item:last-child { margin-bottom:0; }
+  .tl-item::before { content:""; position:absolute; left:-36px; top:4px; width:14px; height:14px; border-radius:50%; background:var(--gold); border:3px solid var(--white); box-shadow:0 0 0 2px var(--gold); }
+  .tl-year { font-family:var(--font-display); font-size:20px; font-weight:700; color:var(--gold); margin-bottom:4px; }
+  .tl-title { font-size:14.5px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+  .tl-text { font-size:13px; color:var(--gray-text); line-height:1.6; }
+
+  /* UNESCO */
+  .unesco-card { background:linear-gradient(135deg,#1a3560,#0d2244); color:var(--white); border-radius:12px; padding:28px; margin-bottom:24px; display:flex; gap:24px; align-items:center; }
+  .unesco-badge { width:80px; height:80px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; font-size:34px; flex-shrink:0; }
+  .unesco-card h3 { font-family:var(--font-display); font-size:20px; margin-bottom:8px; color:var(--gold-bright); }
+  .unesco-card p { font-size:13.5px; line-height:1.6; color:rgba(255,255,255,.85); }
+
+  /* GALERIE */
+  .galerie-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:24px; }
+  .galerie-item { border-radius:10px; overflow:hidden; height:150px; position:relative; }
+  .galerie-item img { width:100%; height:100%; object-fit:cover; transition:transform .3s; }
+  .galerie-item:hover img { transform:scale(1.06); }
+  .galerie-cap { position:absolute; bottom:0; left:0; right:0; padding:20px 12px 10px; background:linear-gradient(transparent,rgba(0,0,0,.75)); color:var(--white); font-size:12.5px; font-weight:600; }
+
+  /* RIGHT PANEL */
+  .right-panel { width:280px; flex-shrink:0; padding:20px 16px 0; }
+  .info-box { background:var(--white); border-radius:12px; border:1px solid #e8eaf2; padding:16px; margin-bottom:16px; }
+  .info-box h2 { font-size:16px; font-weight:700; color:var(--navy); margin-bottom:12px; }
+  .info-row { display:flex; gap:10px; margin-bottom:12px; }
+  .info-icon { width:34px; height:34px; background:#e8f0fd; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+  .info-row strong { display:block; font-size:12.5px; color:var(--navy); margin-bottom:2px; }
+  .info-row span { font-size:11.5px; color:var(--gray-text); line-height:1.4; }
+
+  /* FOOTER */
+  .site-footer { background:var(--navy); color:var(--white); padding:36px 24px 20px; }
+  .footer-grid { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr 1.2fr; gap:28px; margin-bottom:28px; }
+  .footer-brand h3 { font-family:var(--font-display); font-size:18px; }
+  .footer-brand h3 span { color:var(--gold); font-style:italic; display:block; font-size:14px; }
+  .footer-brand p { font-size:12px; color:rgba(255,255,255,.6); margin-top:8px; line-height:1.6; }
+  .footer-social { display:flex; gap:10px; margin-top:14px; }
+  .social-btn { width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:13px; }
+  .footer-col h4 { font-size:14px; font-weight:700; margin-bottom:12px; }
+  .footer-col ul { list-style:none; }
+  .footer-col ul li { font-size:12px; color:rgba(255,255,255,.6); margin-bottom:7px; cursor:pointer; }
+  .footer-contact-item { display:flex; align-items:flex-start; gap:8px; margin-bottom:8px; font-size:12px; color:rgba(255,255,255,.7); }
+  .footer-contact-item span { color:var(--gold); }
+  .newsletter-input { display:flex; margin-top:10px; }
+  .newsletter-input input { flex:1; padding:9px 12px; border:none; border-radius:8px 0 0 8px; font-size:12px; background:rgba(255,255,255,.1); color:var(--white); outline:none; }
+  .newsletter-input button { padding:9px 14px; background:var(--gold); color:var(--white); border:none; border-radius:0 8px 8px 0; font-size:12.5px; font-weight:700; cursor:pointer; }
+  .footer-bottom { border-top:1px solid rgba(255,255,255,.12); padding-top:16px; text-align:center; font-size:11.5px; color:rgba(255,255,255,.45); }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-row">
+      <div class="logo-icon">🏛️</div>
+      <div class="logo-text"><h1>Saint-Louis</h1><span>Tours</span></div>
+    </div>
+    <p class="sidebar-tagline">Découvrez. Réservez. Vivez Saint-Louis.</p>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-item" onclick="location.href='index.html'"><span class="nav-icon">🏠</span> Accueil</div>
+    <div class="nav-item active"><span class="nav-icon">🏛</span> Historique de Saint-Louis</div>
+    <div class="nav-item" onclick="location.href='activites.html'"><span class="nav-icon">🎯</span> Activités</div>
+    <div class="nav-item" onclick="location.href='zones.html'"><span class="nav-icon">📍</span> Zones touristiques</div>
+    <div class="nav-item" onclick="location.href='hotels.html'"><span class="nav-icon">🛏</span> Hôtels &amp; Réservations</div>
+    <div class="nav-item" onclick="location.href='restaurants.html'"><span class="nav-icon">🍽</span> Restaurants &amp; Réservations</div>
+    <div class="nav-item" onclick="location.href='offres.html'"><span class="nav-icon">💼</span> Offres</div>
+    <div class="nav-item" onclick="location.href='partenaires.html'"><span class="nav-icon">🤝</span> Partenaires</div>
+    <div class="nav-item" onclick="location.href='evenements.html'"><span class="nav-icon">📅</span> Événements</div>
+    <div class="nav-item" onclick="location.href='actualites.html'"><span class="nav-icon">📰</span> Actualités</div>
+    <div class="nav-item" onclick="location.href='apropos.html'"><span class="nav-icon">ℹ️</span> À propos</div>
+    <div class="nav-item" onclick="location.href='contact.html'"><span class="nav-icon">📞</span> Contact</div>
+  </nav>
+  <div class="sidebar-banner">
+    <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=400&q=80" alt="Pont Faidherbe">
+    <div class="sidebar-banner-text">
+      <p>Découvrez la beauté</p><strong>de Saint-Louis</strong>
+      <small>Entre histoire, culture et modernité.</small>
+    </div>
+  </div>
+</aside>
+
+<div class="main-wrapper">
+  <header class="topbar">
+    <div class="search-box"><input type="text" placeholder="Rechercher..."><span class="search-icon">🔍</span></div>
+    <nav class="top-nav">
+      <a href="index.html">Accueil</a><a href="apropos.html">À propos</a>
+      <a href="evenements.html">Événements</a><a href="actualites.html">Actualités</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="topbar-right">
+      <div class="notif-btn">🔔</div>
+      <div class="account-btn"><div class="account-icon">👤</div>Mon compte ▾</div>
+    </div>
+  </header>
+
+  <div class="content-area">
+    <main class="main-content">
+      <div class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="page-hero-content">
+          <div class="breadcrumb"><a href="index.html">Accueil</a> › Historique</div>
+          <h1>Historique de Saint-Louis</h1>
+          <p>De comptoir colonial à cité UNESCO, découvrez 400 ans d'histoire.</p>
+        </div>
+      </div>
+
+      <div class="unesco-card">
+        <div class="unesco-badge">🏆</div>
+        <div>
+          <h3>Patrimoine mondial de l'UNESCO</h3>
+          <p>Depuis l'an 2000, l'île de Saint-Louis est inscrite au patrimoine mondial de l'UNESCO, en reconnaissance de son architecture coloniale unique et de son rôle historique majeur en Afrique de l'Ouest.</p>
+        </div>
+      </div>
+
+      <div class="timeline-card">
+        <h2>Chronologie de la ville</h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-year">1659</div>
+            <div class="tl-title">Fondation du comptoir</div>
+            <div class="tl-text">Des marchands français fondent un comptoir commercial sur l'île de Ndar, à l'embouchure du fleuve Sénégal.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">1673</div>
+            <div class="tl-title">Capitale de la colonie</div>
+            <div class="tl-text">Saint-Louis devient la capitale de l'Afrique-Occidentale française (AOF), statut qu'elle conservera jusqu'en 1902.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">1854</div>
+            <div class="tl-title">Gouvernorat de Faidherbe</div>
+            <div class="tl-text">Louis Faidherbe modernise la ville et fait construire le célèbre pont métallique qui porte aujourd'hui son nom.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">1865</div>
+            <div class="tl-title">Pont Faidherbe</div>
+            <div class="tl-text">Inauguration du pont Faidherbe, véritable prouesse technique de l'époque, reliant l'île au continent.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">1958</div>
+            <div class="tl-title">Capitale du Sénégal</div>
+            <div class="tl-text">Saint-Louis devient un temps la capitale du Sénégal indépendant, avant le transfert à Dakar.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2000</div>
+            <div class="tl-title">Inscription à l'UNESCO</div>
+            <div class="tl-text">L'île de Saint-Louis est classée au patrimoine mondial, consacrant sa valeur historique et architecturale universelle.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-card">
+        <h2>Galerie historique</h2>
+        <div class="galerie-grid">
+          <div class="galerie-item">
+            <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=400&q=80" alt="Pont Faidherbe">
+            <div class="galerie-cap">Pont Faidherbe</div>
+          </div>
+          <div class="galerie-item">
+            <img src="https://images.unsplash.com/photo-1580740405468-5e0e0e0e0e0e?w=400&q=80" alt="Architecture coloniale">
+            <div class="galerie-cap">Architecture coloniale</div>
+          </div>
+          <div class="galerie-item">
+            <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=400&q=80" alt="Rues de l'île">
+            <div class="galerie-cap">Rues de l'île de Ndar</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="right-panel">
+      <div class="info-box">
+        <h2>En bref</h2>
+        <div class="info-row"><div class="info-icon">📍</div><div><strong>Localisation</strong><span>Embouchure du fleuve Sénégal</span></div></div>
+        <div class="info-row"><div class="info-icon">🏆</div><div><strong>Statut</strong><span>Patrimoine mondial UNESCO</span></div></div>
+        <div class="info-row"><div class="info-icon">📅</div><div><strong>Fondation</strong><span>1659</span></div></div>
+        <div class="info-row"><div class="info-icon">🏛</div><div><strong>Ancienne capitale</strong><span>De l'AOF (1673–1902)</span></div></div>
+      </div>
+      <div class="info-box">
+        <h2>À visiter</h2>
+        <div class="info-row"><div class="info-icon">🌉</div><div><strong>Pont Faidherbe</strong><span>Monument emblématique</span></div></div>
+        <div class="info-row"><div class="info-icon">🏛️</div><div><strong>Musée de l'AOF</strong><span>Histoire coloniale</span></div></div>
+        <div class="info-row"><div class="info-icon">🕌</div><div><strong>Grande Mosquée</strong><span>Architecture singulière</span></div></div>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Saint-Louis <span>Tours</span></h3>
+        <p>Votre compagnon idéal pour découvrir Saint-Louis et vivre des expériences inoubliables.</p>
+        <div class="footer-social"><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">𝕏</div><div class="social-btn">▶</div></div>
+      </div>
+      <div class="footer-col"><h4>Liens rapides</h4><ul><li>Accueil</li><li>Historique</li><li>Activités</li><li>Zones touristiques</li><li>Événements</li></ul></div>
+      <div class="footer-col"><h4>Informations</h4><ul><li>À propos</li><li>Partenaires</li><li>Actualités</li><li>FAQ</li><li>Contact</li></ul></div>
+      <div class="footer-col"><h4>Contactez-nous</h4>
+        <div class="footer-contact-item"><span>📍</span> Rue Abdoulaye Nder, Saint-Louis</div>
+        <div class="footer-contact-item"><span>📞</span> +221 33 961 10 10</div>
+        <div class="footer-contact-item"><span>✉️</span> contact@saintlouis-tours.sn</div>
+      </div>
+      <div class="footer-col"><h4>Newsletter</h4>
+        <div class="newsletter-input"><input type="email" placeholder="Votre email"><button>S'abonner</button></div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2024 Saint-Louis Tours | Tous droits réservés</div>
+  </footer>
+</div>
+</body>
+</html>
