@@ -1,464 +1,1332 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Gandiole · Mairie Communale</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        :root {
-            --vert-sen: #00853F;
-            --jaune: #FFCD00;
-            --rouge: #CE1126;
-            --bg-clair: #F8F9FA;
-            --card-bg: #ffffff;
-            --text-dark: #1e2a2e;
-            --shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
-            --transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        body.dark {
-            --bg-clair: #121212;
-            --card-bg: #1e2a27;
-            --text-dark: #f0f3f5;
-            background: #0c1f15;
-            color: #f0f3f5;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-clair);
-            color: var(--text-dark);
-            line-height: 1.5;
-            scroll-behavior: smooth;
-        }
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-        /* NAVBAR FIXE */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--card-bg);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            z-index: 1000;
-            transition: var(--transition);
-        }
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.9rem 2rem;
-            max-width: 1400px;
-            margin: auto;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 800;
-            font-size: 1.3rem;
-        }
-        .etoile-logo {
-            width: 42px;
-            height: 42px;
-            background: var(--vert-sen);
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        .logo-text { color: var(--vert-sen); font-weight: 800; letter-spacing: -0.3px; }
-        body.dark .logo-text { color: var(--jaune);}
-        .nav-menu {
-            display: flex;
-            gap: 28px;
-            list-style: none;
-            align-items: center;
-        }
-        .nav-link {
-            text-decoration: none;
-            font-weight: 600;
-            color: var(--text-dark);
-            transition: var(--transition);
-        }
-        .nav-link:hover { color: var(--rouge); transform: translateY(-2px);}
-        .dark-toggle {
-            background: var(--vert-sen);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 40px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            margin-left: 12px;
-        }
-        .hamburger {
-            display: none;
-            font-size: 2rem;
-            background: none;
-            border: none;
-            color: var(--vert-sen);
-            cursor: pointer;
-        }
-        @media (max-width: 768px) {
-            .hamburger { display: block; }
-            .nav-menu {
-                position: fixed;
-                left: -100%;
-                top: 72px;
-                flex-direction: column;
-                background: var(--card-bg);
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                padding: 2rem 0;
-                gap: 28px;
-                box-shadow: 0 20px 30px rgba(0,0,0,0.1);
-            }
-            .nav-menu.active { left: 0; }
-            .nav-container { padding: 0.8rem 1.2rem; }
-        }
-        /* CARROUSEL HERO */
-        .carousel-container {
-            margin-top: 80px;
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 0 0 32px 32px;
-            box-shadow: var(--shadow);
-        }
-        .carousel-slides {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel-slide {
-            min-width: 100%;
-            height: 460px;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        .carousel-caption {
-            background: rgba(0,0,0,0.55);
-            backdrop-filter: blur(4px);
-            padding: 1.5rem 2rem;
-            border-radius: 32px;
-            color: white;
-            text-align: center;
-            max-width: 80%;
-        }
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.6);
-            color: white;
-            border: none;
-            font-size: 2rem;
-            padding: 0 1rem;
-            cursor: pointer;
-            z-index: 10;
-            border-radius: 50%;
-        }
-        .prev { left: 15px; }
-        .next { right: 15px; }
-        @media (max-width: 768px) {
-            .carousel-slide { height: 320px; }
-            .carousel-caption { font-size: 0.9rem; padding: 1rem; }
-        }
-        /* mot du maire */
-        .maire-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            background: var(--card-bg);
-            border-radius: 40px;
-            padding: 2rem;
-            margin: 3rem 0;
-            align-items: center;
-            box-shadow: var(--shadow);
-        }
-        .maire-image {
-            flex: 1;
-            min-width: 200px;
-            text-align: center;
-        }
-        .maire-image img {
-            width: 100%;
-            max-width: 260px;
-            border-radius: 32px;
-            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
-            border: 3px solid var(--jaune);
-        }
-        .maire-text {
-            flex: 2;
-        }
-        .btn-primary {
-            background: var(--vert-sen);
-            padding: 12px 28px;
-            border-radius: 60px;
-            font-weight: bold;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-block;
-        }
-        .btn-primary:hover { background: var(--rouge); transform: scale(1.02);}
-        .section-title {
-            font-size: 2rem;
-            border-left: 6px solid var(--jaune);
-            padding-left: 1rem;
-            margin: 2.5rem 0 1.5rem;
-        }
-        .activity-showcase {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        .act-card {
-            background: var(--card-bg);
-            border-radius: 32px;
-            overflow: hidden;
-            transition: var(--transition);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-        }
-        .act-card:hover { transform: translateY(-8px); box-shadow: var(--shadow);}
-        .act-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .act-info { padding: 1.5rem; }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        .stat-card {
-            background: var(--card-bg);
-            border-radius: 28px;
-            padding: 1.5rem;
-            text-align: center;
-            font-weight: 700;
-        }
-        /* footer moderne */
-        .footer-modern {
-            background: linear-gradient(135deg, var(--rouge) 0%, #8B0000 100%);
-            color: white;
-            padding: 3rem 0 1.5rem;
-            margin-top: 4rem;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        .footer-col h4 { margin-bottom: 1rem; border-left: 3px solid var(--jaune); padding-left: 10px; }
-        .footer-col a { color: #ffecb3; text-decoration: none; display: block; margin: 0.5rem 0; transition: 0.2s; }
-        .footer-col a:hover { color: white; transform: translateX(5px);}
-        .copyright { text-align: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1.5rem; font-size: 0.85rem;}
-        /* autres sections communes */
-        .modal {
-            display: none;
-            position: fixed;
-            top:0; left:0;
-            width:100%; height:100%;
-            background: rgba(0,0,0,0.8);
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-        .modal-content {
-            background: var(--card-bg);
-            max-width: 500px;
-            width: 90%;
-            border-radius: 32px;
-            padding: 2rem;
-        }
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 60px;
-            border: 1px solid #ccc;
-        }
-        .contact-form textarea { border-radius: 24px; }
-        .annonce-item {
-            background: var(--card-bg);
-            border-radius: 28px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-        .fade-in { animation: fadeUp 0.6s ease forwards; }
-        .loader {
-            position: fixed;
-            top:0; left:0; width:100%; height:100%;
-            background: var(--bg-clair);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-        .spinner {
-            width: 48px; height:48px;
-            border:5px solid #ccc;
-            border-top:5px solid var(--vert-sen);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg);} }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saint-Louis Tours</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d2244;
+    --navy-light: #1a3560;
+    --gold: #c8a02e;
+    --gold-bright: #e8b830;
+    --blue-btn: #1e4fa3;
+    --blue-hover: #163d8a;
+    --green: #22a55b;
+    --white: #ffffff;
+    --gray-bg: #f5f6fa;
+    --gray-light: #eef0f5;
+    --gray-text: #666;
+    --gray-dark: #333;
+    --sidebar-w: 210px;
+    --font-main: 'Source Sans 3', sans-serif;
+    --font-display: 'Playfair Display', serif;
+  }
+
+  body {
+    font-family: var(--font-main);
+    background: var(--gray-bg);
+    color: var(--gray-dark);
+    display: flex;
+    min-height: 100vh;
+    font-size: 14px;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--navy);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .sidebar-logo {
+    padding: 18px 16px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--gold);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .logo-text h1 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--white);
+  }
+
+  .logo-text span {
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .sidebar-tagline {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+  }
+
+  .sidebar-nav {
+    padding: 12px 0;
+    flex: 1;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 13.5px;
+  }
+
+  .nav-item:hover { background: rgba(255,255,255,0.08); }
+
+  .nav-item.active {
+    background: var(--blue-btn);
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .nav-item .nav-icon {
+    width: 18px;
+    text-align: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-banner {
+    margin: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    height: 130px;
+    background: linear-gradient(135deg, #1a3560 0%, #0d1f3c 100%);
+  }
+
+  .sidebar-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+  }
+
+  .sidebar-banner-text {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 10px 12px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  }
+
+  .sidebar-banner-text p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 2px;
+  }
+
+  .sidebar-banner-text strong {
+    font-size: 14px;
+    color: var(--gold);
+    font-family: var(--font-display);
+    display: block;
+    line-height: 1.2;
+  }
+
+  .sidebar-banner-text small {
+    font-size: 10px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===== MAIN WRAPPER ===== */
+  .main-wrapper {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* ===== TOPBAR ===== */
+  .topbar {
+    background: var(--white);
+    border-bottom: 1px solid #e0e4ed;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+  }
+
+  .search-box {
+    flex: 0 0 260px;
+    position: relative;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 8px 36px 8px 14px;
+    border: 1px solid #d0d5e8;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #666;
+    outline: none;
+    background: var(--gray-bg);
+  }
+
+  .search-box input:focus { border-color: var(--blue-btn); }
+
+  .search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 14px;
+  }
+
+  .top-nav {
+    display: flex;
+    gap: 24px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .top-nav a {
+    text-decoration: none;
+    color: var(--gray-text);
+    font-size: 14px;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .top-nav a.active {
+    color: var(--navy);
+    border-bottom-color: var(--navy);
+    font-weight: 600;
+  }
+
+  .top-nav a:hover { color: var(--navy); }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-left: auto;
+  }
+
+  .notif-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid #e0e4ed;
+    background: var(--gray-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--gray-text);
+  }
+
+  .account-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border: 1px solid #e0e4ed;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--navy);
+    background: var(--white);
+  }
+
+  .account-icon {
+    width: 26px;
+    height: 26px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 12px;
+  }
+
+  /* ===== CONTENT AREA ===== */
+  .content-area {
+    display: flex;
+    flex: 1;
+    gap: 0;
+  }
+
+  .main-content {
+    flex: 1;
+    padding: 20px 20px 0;
+    overflow: hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    height: 260px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #1a3560 0%, #0b1d3a 60%, #0d2244 100%);
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=1200&q=80') center/cover no-repeat;
+    opacity: 0.35;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 32px 40px;
+    max-width: 520px;
+  }
+
+  .hero-subtitle {
+    color: var(--gold-bright);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+
+  .hero-desc {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn-outline-white {
+    padding: 10px 20px;
+    border: 2px solid rgba(255,255,255,0.7);
+    background: transparent;
+    color: var(--white);
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+
+  .btn-outline-white:hover { background: rgba(255,255,255,0.1); }
+
+  .btn-gold {
+    padding: 10px 20px;
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+
+  .btn-gold:hover { background: var(--gold-bright); }
+
+  /* ===== SECTION CARDS ===== */
+  .section-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .section-card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e8eaf2;
+    transition: box-shadow 0.2s;
+  }
+
+  .section-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.09); }
+
+  .section-card-header {
+    padding: 14px 14px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .section-icon {
+    font-size: 16px;
+  }
+
+  .section-card-img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    margin-top: 10px;
+    display: block;
+  }
+
+  .section-card-body {
+    padding: 10px 14px 14px;
+  }
+
+  .section-card-body p {
+    font-size: 12px;
+    color: var(--gray-text);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .voir-plus {
+    font-size: 12.5px;
+    color: var(--blue-btn);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+  }
+
+  .voir-plus:hover { color: var(--navy); }
+
+  /* ===== RESERVEZ ===== */
+  .reservez-section {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e8eaf2;
+    margin-bottom: 24px;
+  }
+
+  .reservez-section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+
+  .reservez-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .partner-group h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+
+  .partner-scroll {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .partner-type-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    min-width: 60px;
+  }
+
+  .partner-type-btn.active-hotels {
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  .partner-type-btn .pt-icon { font-size: 18px; }
+
+  .partner-cards {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .partner-card {
+    flex: 1;
+    border: 1px solid #e0e4ed;
+    border-radius: 10px;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  .partner-card img {
+    width: 100%;
+    height: 72px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .partner-card-body {
+    padding: 8px;
+  }
+
+  .partner-card-name {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .stars {
+    color: var(--gold);
+    font-size: 10px;
+    margin-bottom: 3px;
+  }
+
+  .partner-loc {
+    font-size: 10px;
+    color: var(--gray-text);
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .btn-reserver {
+    width: 100%;
+    padding: 5px 0;
+    background: var(--blue-btn);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .btn-reserver:hover { background: var(--blue-hover); }
+
+  .voir-tous {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 12.5px;
+    color: var(--blue-btn);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  /* ===== RIGHT PANEL ===== */
+  .right-panel {
+    width: 280px;
+    flex-shrink: 0;
+    padding: 20px 16px 0;
+  }
+
+  .offres-box {
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid #e8eaf2;
+    padding: 16px;
+    margin-bottom: 0;
+  }
+
+  .offres-box h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .offres-box .offres-sub {
+    font-size: 11.5px;
+    color: var(--gray-text);
+    margin-bottom: 14px;
+  }
+
+  .offres-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .offres-tab {
+    flex: 1;
+    padding: 7px 4px;
+    border-radius: 8px;
+    border: 1px solid #e0e4ed;
+    background: var(--white);
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: var(--navy);
+  }
+
+  .offres-tab.active {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+  }
+
+  .offre-item {
+    border: 1px solid #e8eaf2;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+  }
+
+  .offre-item:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+
+  .offre-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .offre-icon-wrap {
+    width: 36px;
+    height: 36px;
+    background: #e8f4ec;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+
+  .offre-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .badge-new {
+    background: var(--green);
+    color: var(--white);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .offre-org {
+    font-size: 11.5px;
+    color: var(--gray-text);
+    margin-bottom: 6px;
+    margin-left: 46px;
+  }
+
+  .offre-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 46px;
+  }
+
+  .offre-tags {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .tag-cdi, .tag-cdd {
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+
+  .tag-cdi { background: #e8f0fd; color: var(--blue-btn); }
+  .tag-cdd { background: #fff3e0; color: #e07800; }
+
+  .offre-loc {
+    font-size: 10.5px;
+    color: var(--gray-text);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .offre-date {
+    font-size: 10.5px;
+    color: var(--gray-text);
+  }
+
+  .voir-offres {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: var(--blue-btn);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  /* ===== FOOTER ===== */
+  .site-footer {
+    background: var(--navy);
+    color: var(--white);
+    padding: 36px 24px 20px;
+    margin-left: 0;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr 1.2fr;
+    gap: 28px;
+    margin-bottom: 28px;
+  }
+
+  .footer-brand h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--white);
+  }
+
+  .footer-brand h3 span {
+    color: var(--gold);
+    font-style: italic;
+    display: block;
+    font-size: 14px;
+  }
+
+  .footer-brand p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .social-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--white);
+    transition: background 0.2s;
+  }
+
+  .social-btn:hover { background: rgba(255,255,255,0.2); }
+
+  .footer-col h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+
+  .footer-col ul {
+    list-style: none;
+  }
+
+  .footer-col ul li {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 7px;
+    cursor: pointer;
+  }
+
+  .footer-col ul li:hover { color: var(--white); }
+
+  .footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .footer-contact-item span { color: var(--gold); font-size: 13px; margin-top: 1px; }
+
+  .newsletter-input {
+    display: flex;
+    gap: 0;
+    margin-top: 10px;
+  }
+
+  .newsletter-input input {
+    flex: 1;
+    padding: 9px 12px;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    font-size: 12px;
+    outline: none;
+    background: rgba(255,255,255,0.1);
+    color: var(--white);
+  }
+
+  .newsletter-input input::placeholder { color: rgba(255,255,255,0.4); }
+
+  .newsletter-input button {
+    padding: 9px 14px;
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    border-radius: 0 8px 8px 0;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 16px;
+    text-align: center;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* Placeholder images (conservé pour compatibilité) */
+  .img-placeholder {
+    background: linear-gradient(135deg, #d0d8ea 0%, #bbc5dd 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8890aa;
+    font-size: 11px;
+  }
+
+  /* ===== IMAGES RÉELLES ===== */
+  .section-card-img-real {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    margin-top: 10px;
+    display: block;
+  }
+
+  .partner-card-img-real {
+    width: 100%;
+    height: 72px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .sidebar-banner-img-real {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    position: absolute;
+    inset: 0;
+  }
+</style>
 </head>
 <body>
-<div class="loader" id="loader"><div class="spinner"></div></div>
 
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="logo"><div class="etoile-logo"></div><span class="logo-text">Mairie de Gandiole</span></div>
-        <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
-        <ul class="nav-menu" id="nav-menu">
-            <li><a href="#" class="nav-link" data-nav="home">Accueil</a></li>
-            <li><a href="#" class="nav-link" data-nav="activities">Activités</a></li>
-            <li><a href="#" class="nav-link" data-nav="services">Services</a></li>
-            <li><a href="#" class="nav-link" data-nav="annonces">Annonces</a></li>
-            <li><a href="#" class="nav-link" data-nav="contact">Contact</a></li>
-            <li><button class="dark-toggle" id="darkModeToggle">🌙 Mode</button></li>
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-row">
+      <div class="logo-icon">🏛️</div>
+      <div class="logo-text">
+        <h1>Saint-Louis</h1>
+        <span>Tours</span>
+      </div>
+    </div>
+    <p class="sidebar-tagline">Découvrez. Réservez. Vivez Saint-Louis.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-item active" onclick="location.href='table.html'">
+      <span class="nav-icon">🏠</span> Accueil
+    </div>
+    <div class="nav-item" onclick="location.href='historique.html'">
+      <span class="nav-icon">🏛</span> Historique de Saint-Louis
+    </div>
+    <div class="nav-item" onclick="location.href='activites.html'">
+      <span class="nav-icon">🎯</span> Activités
+    </div>
+    <div class="nav-item" onclick="location.href='zones.html'">
+      <span class="nav-icon">📍</span> Zones touristiques
+    </div>
+    <div class="nav-item" onclick="location.href='hotels.html'">
+      <span class="nav-icon">🛏</span> Hôtels &amp; Réservations
+    </div>
+    <div class="nav-item" onclick="location.href='restaurants.html'">
+      <span class="nav-icon">🍽</span> Restaurants &amp; Réservations
+    </div>
+    <div class="nav-item" onclick="location.href='offres.html'">
+      <span class="nav-icon">💼</span> Offres<br>
+      <small style="margin-left:30px;font-size:10px;color:rgba(255,255,255,0.5);">Emplois, Concours, Examens</small>
+    </div>
+    <div class="nav-item" onclick="location.href='partenaires.html'">
+      <span class="nav-icon">🤝</span> Partenaires
+    </div>
+    <div class="nav-item" onclick="location.href='evenements.html'">
+      <span class="nav-icon">📅</span> Événements
+    </div>
+    <div class="nav-item" onclick="location.href='actualites.html'">
+      <span class="nav-icon">📰</span> Actualités
+    </div>
+    <div class="nav-item" onclick="location.href='apropos.html'">
+      <span class="nav-icon">ℹ️</span> À propos
+    </div>
+    <div class="nav-item" onclick="location.href='contact.html'">
+      <span class="nav-icon">📞</span> Contact
+    </div>
+  </nav>
+
+  <div class="sidebar-banner">
+    <img class="sidebar-banner-img-real" src="https://images.unsplash.com/photo-1580740405468-5e0e0e0e0e0e?w=400&q=80" alt="Pont Faidherbe, Saint-Louis" onerror="this.style.display='none'">
+    <div class="sidebar-banner-text">
+      <p>Découvrez la beauté</p>
+      <strong>de Saint-Louis</strong>
+      <small>Entre histoire, culture et modernité.</small>
+    </div>
+  </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<div class="main-wrapper">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="search-box">
+      <input type="text" placeholder="Rechercher...">
+      <span class="search-icon">🔍</span>
+    </div>
+    <nav class="top-nav">
+      <a href="index.html" class="active">Accueil</a>
+      <a href="apropos.html">À propos</a>
+      <a href="evenements.html">Événements</a>
+      <a href="actualites.html">Actualités</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="topbar-right">
+      <div class="notif-btn">🔔</div>
+      <div class="account-btn" onclick="location.href='contact.html'">
+        <div class="account-icon">👤</div>
+        Mon compte ▾
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="content-area">
+    <main class="main-content">
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+          <p class="hero-subtitle">Bienvenue sur</p>
+          <h1 class="hero-title">Saint-Louis Tours</h1>
+          <p class="hero-desc">Votre plateforme officielle pour découvrir l'histoire, les activités, les lieux touristiques et réserver vos séjours à Saint-Louis.</p>
+          <div class="hero-btns">
+            <button class="btn-outline-white" onclick="location.href='historique.html'">Découvrir la ville →</button>
+            <button class="btn-gold" onclick="location.href='hotels.html'">📅 Réserver maintenant</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION CARDS -->
+      <div class="section-grid">
+        <!-- Historique -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <span class="section-icon">🏛</span>
+            <span class="section-card-title">Historique de Saint-Louis</span>
+          </div>
+          <img class="section-card-img-real" src="https://images.unsplash.com/photo-1580740405444-8b8b8b8b8b8b?w=400&q=80" alt="Architecture historique de Saint-Louis" onerror="this.style.display='none'">
+          <div class="section-card-body">
+            <p>Plongez dans le riche passé de Saint-Louis, classée au patrimoine mondial de l'UNESCO depuis 2000.</p>
+            <a class="voir-plus" href="historique.html">Voir plus →</a>
+          </div>
+        </div>
+        <!-- Activités -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <span class="section-icon">🎯</span>
+            <span class="section-card-title">Activités</span>
+          </div>
+          <img class="section-card-img-real" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80" alt="Plage et activités nautiques" onerror="this.style.display='none'">
+          <div class="section-card-body">
+            <p>Découvrez une variété d'activités culturelles, sportives, nautiques et festives à vivre toute l'année.</p>
+            <a class="voir-plus" href="activites.html">Voir plus →</a>
+          </div>
+        </div>
+        <!-- Zones -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <span class="section-icon">📍</span>
+            <span class="section-card-title">Zones touristiques</span>
+          </div>
+          <img class="section-card-img-real" src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=400&q=80" alt="Rues et zones touristiques" onerror="this.style.display='none'">
+          <div class="section-card-body">
+            <p>Explorez les lieux incontournables, plages, îles, monuments et quartiers emblématiques de la ville.</p>
+            <a class="voir-plus" href="zones.html">Voir plus →</a>
+          </div>
+        </div>
+        <!-- Partenariats -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <span class="section-icon">🤝</span>
+            <span class="section-card-title">Partenariats</span>
+          </div>
+          <img class="section-card-img-real" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&q=80" alt="Partenariats et collaborations" onerror="this.style.display='none'">
+          <div class="section-card-body">
+            <p>Découvrez nos partenaires hôteliers, restaurants et institutions qui font rayonner Saint-Louis.</p>
+            <a class="voir-plus" href="partenaires.html">Voir plus →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESERVEZ -->
+      <div class="reservez-section">
+        <h2>Réservez votre séjour</h2>
+        <div class="reservez-grid">
+          <!-- Hotels -->
+          <div class="partner-group">
+            <h3>Hôtels partenaires</h3>
+            <div class="partner-scroll">
+              <div class="partner-type-btn active-hotels" onclick="location.href='hotels.html'">
+                <span class="pt-icon">🛏</span> Hôtels
+              </div>
+              <div class="partner-cards">
+                <!-- Hotel 1 -->
+                <div class="partner-card">
+                  <img class="partner-card-img-real" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=300&q=80" alt="Hôtel La Résidence" onerror="this.style.display='none'">
+                  <div class="partner-card-body">
+                    <div class="partner-card-name">Hôtel La Résidence</div>
+                    <div class="stars">★★★★★</div>
+                    <div class="partner-loc">📍 Saint-Louis</div>
+                    <button class="btn-reserver" onclick="location.href='hotels.html'">Réserver</button>
+                  </div>
+                </div>
+                <!-- Hotel 2 -->
+                <div class="partner-card">
+                  <img class="partner-card-img-real" src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=300&q=80" alt="Ndar Saint-Louis" onerror="this.style.display='none'">
+                  <div class="partner-card-body">
+                    <div class="partner-card-name">Ndar Saint-Louis</div>
+                    <div class="stars">★★★★★</div>
+                    <div class="partner-loc">📍 Saint-Louis</div>
+                    <button class="btn-reserver" onclick="location.href='hotels.html'">Réserver</button>
+                  </div>
+                </div>
+                <!-- Hotel 3 -->
+                <div class="partner-card">
+                  <img class="partner-card-img-real" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=300&q=80" alt="Hôtel Cap Saint-Louis" onerror="this.style.display='none'">
+                  <div class="partner-card-body">
+                    <div class="partner-card-name">Hôtel Cap Saint-Louis</div>
+                    <div class="stars">★★★★★</div>
+                    <div class="partner-loc">📍 Saint-Louis</div>
+                    <button class="btn-reserver" onclick="location.href='hotels.html'">Réserver</button>
+                  </div>
+                </div>
+                <!-- Hotel 4 -->
+                <div class="partner-card">
+                  <img class="partner-card-img-real" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=300&q=80" alt="Hôtel Diamarek" onerror="this.style.display='none'">
+                  <div class="partner-card-body">
+                    <div class="partner-card-name">Hôtel Diamarek</div>
+                    <div class="stars">★★★★☆</div>
+                    <div class="partner-loc">📍 Saint-Louis</div>
+                    <button class="btn-reserver" onclick="location.href='hotels.html'">Réserver</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="voir-tous" onclick="location.href='hotels.html'">Voir tous les hôtels →</div>
+          </div>
+
+          <!-- Restaurants -->
+          <div class="partner-group">
+            <h3>Restaurants partenaires</h3>
+            <div class="partner-scroll">
+              <div class="partner-type-btn active-hotels" style="background:transparent;color:var(--navy);border:1px solid #e0e4ed;" onclick="location.href='restaurants.html'">
+                <span class="pt-icon">🍽</span> Restaurants
+              </div>
+              <div class="partner-cards">
+                <!-- Rest 1 -->
+                <div class="partner-card">
+                  <img class="partner-card-img-real" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&q=80" alt="Le Ramata" onerror="this.style.display='none'">
+                  <div class="partner-card-body">
+                    <div class="partner-card-name">Le Ramata</div>
+                    <div class="stars">★★★★★</div>
+                    <div class="partner-loc">📍 Saint-Louis</div>
+                    <button class="btn-reserver" onclick="location.href='restaurants.html'">Réserver</button>
+                  </div>
+                </div>
+                <!-- Rest 2 -->
+                <div class="partner-card">
+                  <img class="partner-card-img-real" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=300&q=80" alt="Le Dakar 32" onerror="this.style.display='none'">
+                  <div class="partner-card-body">
+                    <div class="partner-card-name">Le Dakar 32</div>
+                    <div class="stars">★★★★☆</div>
+                    <div class="partner-loc">📍 Saint-Louis</div>
+                    <button class="btn-reserver" onclick="location.href='restaurants.html'">Réserver</button>
+                  </div>
+                </div>
+                <!-- Rest 3 -->
+                <div class="partner-card">
+                  <img class="partner-card-img-real" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&q=80" alt="La Terrasse" onerror="this.style.display='none'">
+                  <div class="partner-card-body">
+                    <div class="partner-card-name">La Terrasse</div>
+                    <div class="stars">★★★★☆</div>
+                    <div class="partner-loc">📍 Saint-Louis</div>
+                    <button class="btn-reserver" onclick="location.href='restaurants.html'">Réserver</button>
+                  </div>
+                </div>
+                <!-- Rest 4 -->
+                <div class="partner-card">
+                  <img class="partner-card-img-real" src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300&q=80" alt="Le Fleuve" onerror="this.style.display='none'">
+                  <div class="partner-card-body">
+                    <div class="partner-card-name">Le Fleuve</div>
+                    <div class="stars">★★★★★</div>
+                    <div class="partner-loc">📍 Saint-Louis</div>
+                    <button class="btn-reserver" onclick="location.href='restaurants.html'">Réserver</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="voir-tous" onclick="location.href='restaurants.html'">Voir tous les restaurants →</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="right-panel">
+      <div class="offres-box">
+        <h2>Offres</h2>
+        <p class="offres-sub">Toutes les opportunités au même endroit</p>
+
+        <div class="offres-tabs">
+          <button class="offres-tab active" onclick="location.href='offres.html#emplois'">💼 Emplois</button>
+          <button class="offres-tab" onclick="location.href='offres.html#concours'">🏆 Concours</button>
+          <button class="offres-tab" onclick="location.href='offres.html#examens'">📋 Examens</button>
+        </div>
+
+        <!-- Offre 1 -->
+        <div class="offre-item" onclick="location.href='offres.html#emplois'">
+          <div class="offre-top">
+            <div class="offre-icon-wrap">💼</div>
+            <div>
+              <div class="offre-title">
+                Agent d'Accueil touristique
+                <span class="badge-new">Nouveau</span>
+              </div>
+            </div>
+          </div>
+          <div class="offre-org">Mairie de Saint-Louis</div>
+          <div class="offre-meta">
+            <div class="offre-tags">
+              <span class="tag-cdi">CDI</span>
+              <span class="offre-loc">📍 Saint-Louis</span>
+            </div>
+            <span class="offre-date">31 Mai 2024</span>
+          </div>
+        </div>
+
+        <!-- Offre 2 -->
+        <div class="offre-item" onclick="location.href='offres.html#emplois'">
+          <div class="offre-top">
+            <div class="offre-icon-wrap">💼</div>
+            <div>
+              <div class="offre-title">
+                Guide touristique
+                <span class="badge-new">Nouveau</span>
+              </div>
+            </div>
+          </div>
+          <div class="offre-org">Office du Tourisme de Saint-Louis</div>
+          <div class="offre-meta">
+            <div class="offre-tags">
+              <span class="tag-cdd">CDD</span>
+              <span class="offre-loc">📍 Saint-Louis</span>
+            </div>
+            <span class="offre-date">28 Mai 2024</span>
+          </div>
+        </div>
+
+        <!-- Offre 3 -->
+        <div class="offre-item" onclick="location.href='offres.html#emplois'">
+          <div class="offre-top">
+            <div class="offre-icon-wrap">💼</div>
+            <div>
+              <div class="offre-title">
+                Chargé de communication
+                <span class="badge-new">Nouveau</span>
+              </div>
+            </div>
+          </div>
+          <div class="offre-org">Comité d'Organisation</div>
+          <div class="offre-meta">
+            <div class="offre-tags">
+              <span class="tag-cdd">CDD</span>
+              <span class="offre-loc">📍 Saint-Louis</span>
+            </div>
+            <span class="offre-date">25 Mai 2024</span>
+          </div>
+        </div>
+
+        <div class="voir-offres" onclick="location.href='offres.html'">Voir toutes les offres →</div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Saint-Louis <span>Tours</span></h3>
+        <p>Votre compagnon idéal pour découvrir Saint-Louis et vivre des expériences inoubliables.</p>
+        <div class="footer-social">
+          <div class="social-btn">f</div>
+          <div class="social-btn">📸</div>
+          <div class="social-btn">𝕏</div>
+          <div class="social-btn">▶</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Liens rapides</h4>
+        <ul>
+          <li onclick="location.href='table.html'">Accueil</li>
+          <li onclick="location.href='historique.html'">Historique de la ville</li>
+          <li onclick="location.href='activites.html'">Activités</li>
+          <li onclick="location.href='zones.html'">Zones touristiques</li>
+          <li onclick="location.href='evenements.html'">Événements</li>
         </ul>
-    </div>
-</nav>
+      </div>
 
-<!-- CARROUSEL D'IMAGES -->
-<div class="carousel-container">
-    <div class="carousel-slides" id="carouselSlides">
-        <div class="carousel-slide" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://placehold.co/1600x600/2D6A4F/FFFFFF?text=Agriculture+Maraîchère+Gandiole');">
-            <div class="carousel-caption"><h2> Riz & Maraîchage</h2><p>Coopératives féminines, production durable</p></div>
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <ul>
+          <li onclick="location.href='apropos.html'">À propos de nous</li>
+          <li onclick="location.href='partenaires.html'">Partenaires</li>
+          <li onclick="location.href='actualites.html'">Actualités</li>
+          <li onclick="location.href='contact.html'">FAQ</li>
+          <li onclick="location.href='contact.html'">Contact</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contactez-nous</h4>
+        <div class="footer-contact-item"><span>📍</span> Rue Abdoulaye Nder, Saint-Louis, Sénégal</div>
+        <div class="footer-contact-item"><span>📞</span> +221 33 961 10 10</div>
+        <div class="footer-contact-item"><span>✉️</span> contact@saintlouis-tours.sn</div>
+        <div class="footer-contact-item"><span>🌐</span> www.saintlouis-tours.sn</div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:10px;">Abonnez-vous pour recevoir nos actualités et offres spéciales.</p>
+        <div class="newsletter-input">
+          <input type="email" placeholder="Votre adresse email">
+          <button>S'abonner</button>
         </div>
-        <div class="carousel-slide" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://placehold.co/1600x600/CE1126/FFFFFF?text=Pêche+Artisanale+%26+Tourisme');">
-            <div class="carousel-caption"><h2>Pêche artisanale</h2><p>Économie locale et circuits solidaires</p></div>
-        </div>
-        <div class="carousel-slide" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://placehold.co/1600x600/FFCD00/1e2a2e?text=Élevage+%26+Environnement');">
-            <div class="carousel-caption"><h2>Élevage & Reboisement</h2><p>Projets verts, santé animale</p></div>
-        </div>
+      </div>
     </div>
-    <button class="carousel-btn prev" id="prevBtn">❮</button>
-    <button class="carousel-btn next" id="nextBtn">❯</button>
+
+    <div class="footer-bottom">
+      © 2024 Saint-Louis Tours | Tous droits réservés
+    </div>
+  </footer>
+
 </div>
-
-<main id="main-content">
-    <!-- PAGE ACCUEIL enrichie -->
-    <div id="home-page">
-        <div class="container">
-            <!-- Mot du Maire avec image gauche / texte droite -->
-            <div class="maire-section">
-                <div class="maire-image">
-                    <img src="https://placehold.co/300x320/00853F/FFFFFF?text=Maire+le+Maire" alt="Mr le Maire" loading="lazy">
-                </div>
-                <div class="maire-text">
-                    <h2 style="color: var(--vert-sen);">Mot du Maire de Gandiole,</h2>
-                    <p style="font-size:1.05rem;">Chers habitants et visiteurs,<br><br>
-                    Bienvenue à Gandiole, commune fière de son agriculture maraîchère, de son élevage prospère, de sa pêche artisanale et de son tourisme solidaire. Ensemble, nous développons des projets innovants : écoles rurales, postes de santé, et protection des mangroves. Notre priorité : une croissance inclusive et durable. Je vous invite à découvrir nos réalisations et à participer à la vie communale. <strong>Bâtissons l'avenir ensemble !</strong></p>
-                    <button class="btn-primary" id="plusActionsBtn">📢 Découvrir nos actions</button>
-                </div>
-            </div>
-
-            <!-- Activités communales enrichies avec images (agriculture, élevage, tourisme, pêche) -->
-            <h2 class="section-title">⭐ Nos filières économiques phares</h2>
-            <div class="activity-showcase">
-                <div class="act-card"><img class="act-img" src="https://placehold.co/600x400/00853F/white?text=Agriculture+Maraîchère" alt="maraîchage" loading="lazy"><div class="act-info"><h3>🌱 Agriculture Maraîchère</h3><p>Tomates, oignons, piments. Plus de 200 producteurs formés, irrigation durable, coopératives féminines.</p></div></div>
-                <div class="act-card"><img class="act-img" src="https://placehold.co/600x400/FFCD00/1e2a2e?text=Élevage+et+Pâturage" alt="élevage" loading="lazy"><div class="act-info"><h3>🐐 Élevage moderne</h3><p>Élevage bovin, caprin et ovin. Centre d’insémination, campagnes de vaccination et formation des jeunes bergers.</p></div></div>
-                <div class="act-card"><img class="act-img" src="https://placehold.co/600x400/CE1126/white?text=Tourisme+Solidaire" alt="tourisme" loading="lazy"><div class="act-info"><h3>🌍 Tourisme solidaire</h3><p>Hébergement chez l’habitant, visites des rizières, artisanat local, découverte de la réserve de faune.</p></div></div>
-                <div class="act-card"><img class="act-img" src="https://placehold.co/600x400/00853F/white?text=Pêche+Artisanale" alt="pêche" loading="lazy"><div class="act-info"><h3>🎣 Pêche artisanale</h3><p>Pirogues traditionnelles, transformation de poisson, marché aux poissons soutenu par la mairie.</p></div></div>
-            </div>
-
-            <!-- Chiffres clés actualisés -->
-            <h2 class="section-title">📊 Chiffres clés de la commune</h2>
-            <div class="stats-grid">
-                <div class="stat-card"><strong>🏘️ 32 000+</strong><br>Habitants</div>
-                <div class="stat-card"><strong>🌾 350 ha</strong><br>Exploitations maraîchères</div>
-                <div class="stat-card"><strong>🐟 250</strong><br>Pêcheurs artisans</div>
-                <div class="stat-card"><strong>🏨 8</strong><br>Éco-logements solidaires</div>
-            </div>
-
-            <!-- carte interactive simple -->
-            <h2 class="section-title">🗺️ Carte interactive des lieux clés</h2>
-            <div style="background: #e2e8e7; border-radius: 32px; padding:1rem; margin-bottom:2rem;">
-                <div id="interactiveMap" style="background:#b9c9be; height:220px; border-radius:24px; display:flex; align-items:center; justify-content:center; font-weight:bold; cursor:pointer;">📍 Cliquez pour découvrir les zones d'activité</div>
-                <p id="map-feedback" style="margin-top:8px;"></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- PAGE ACTIVITÉS (détails modale) -->
-    <div id="activities-page" style="display:none;"><div class="container" style="margin-top: 100px;"><h2 class="section-title">🌿 Activités communales détaillées</h2><div id="activitiesGrid" class="activity-showcase"></div></div></div>
-    
-    <!-- PAGE SERVICES -->
-    <div id="services-page" style="display:none;"><div class="container" style="margin-top:100px;"><h2 class="section-title">🏛️ Services municipaux</h2><div id="servicesList" class="activity-showcase"></div><div class="contact-form" style="background:var(--card-bg); padding:2rem; border-radius:32px;"><h3>Formulaire de demande service</h3><input type="text" id="servName" placeholder="Nom"><input type="email" id="servEmail" placeholder="Email"><input type="tel" id="servPhone" placeholder="Téléphone"><textarea rows="2" id="servMsg" placeholder="Message"></textarea><button class="btn-primary" id="submitServiceForm">Envoyer</button><p id="formFeedback"></p></div></div></div>
-
-    <!-- PAGE ANNONCES -->
-    <div id="annonces-page" style="display:none;"><div class="container" style="margin-top:100px;"><h2 class="section-title">📢 Annonces officielles</h2><div style="display:flex; flex-wrap:wrap; gap:1rem;"><input id="searchAnnonce" placeholder="🔍 Rechercher"><select id="filterCategorie"><option value="all">Toutes catégories</option><option value="actualité">Actualités</option><option value="événement">Événements</option><option value="appel">Appels d'offres</option></select><button id="addAnnonceBtn" class="btn-primary">➕ Ajouter annonce</button></div><div id="annoncesList"></div></div></div>
-
-    <!-- PAGE CONTACT -->
-    <div id="contact-page" style="display:none;"><div class="container" style="margin-top:100px;"><h2 class="section-title">📞 Contactez la Mairie</h2><div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;"><div><div class="act-info" style="background:var(--card-bg); border-radius:32px; padding:1.5rem;"><strong>🏛️ Maire Arona Sow</strong><br>Adresse : Ndiébène Gandiole, Saint-Louis, Sénégal<br>📞 +221 33 961 12 34<br>✉️ contact@mairiegandiole.sn</div><iframe width="100%" height="250" style="border-radius:28px;" src="https://www.openstreetmap.org/export/embed.html?bbox=-16.5%2C15.9%2C-16.2%2C16.1&layer=mapnik&marker=16.0%2C-16.35" title="map"></iframe></div><div class="contact-form"><h3>Écrivez-nous</h3><input id="contactNom" placeholder="Nom"><input id="contactEmail" placeholder="Email"><input id="fakeUpload" type="file"><textarea id="contactMessage" rows="3" placeholder="Message..."></textarea><button id="submitContact" class="btn-primary">Envoyer</button></div></div></div></div>
-</main>
-
-<!-- FOOTER MODERNE avec infos supplémentaires -->
-<footer class="footer-modern">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-col"><h4>🏛️ Mairie de Gandiole</h4><p>Ndiébène Gandiole, Département de Saint-Louis<br>Horaires : Lun-Ven 8h-16h<br>📍 Suivez nos projets sur les réseaux</p></div>
-            <div class="footer-col"><h4>📌 Liens rapides</h4><a href="#" data-nav="home">Accueil</a><a href="#" data-nav="activities">Activités</a><a href="#" data-nav="services">Services</a><a href="#" data-nav="annonces">Annonces</a><a href="#" data-nav="contact">Contact</a></div>
-            <div class="footer-col"><h4>🤝 Partenaires</h4><!--p>Union Européenne • État du Sénégal • ANOCI • ONG Solidarité Internationale</p><div style="margin-top:10px;"><span style="background:#FFCD00; padding:5px 10px; border-radius:30px; color:#000;">📢 Projet SantéCom</span--></div></div>
-            <div class="footer-col"><h4>📱 Suivez-nous</h4><a href="#">Facebook / MairieGandiole</a><a href="#">Twitter @GandioleTourisme</a><a href="#">Instagram : gandiole_agriculture</a><button id="scrollTopBtn" style="margin-top:12px; background:white; color:var(--rouge); border:none; padding:6px 16px; border-radius:40px;">↑ Retour haut</button></div>
-        </div>
-        <div class="copyright">© 2026 Plateforme Mairie – Tous droits réservés. Mentions légales | Politique de confidentialité</div>
-    </div>
-</footer>
-
-<div id="modal" class="modal"><div class="modal-content"><h3 id="modalTitle"></h3><p id="modalDesc"></p><button id="closeModal" class="btn-primary" style="background:var(--rouge);">Fermer</button></div></div>
-
-<script>
-    // LOADER + DARKMODE + CARROUSEL
-    window.addEventListener('load', () => {
-        document.getElementById('loader').style.display = 'none';
-        initDarkMode(); initMobileMenu(); initNavigation(); initCarousel();
-        loadActivitiesData(); loadServicesList(); initAnnoncesModule(); initContactForms(); initInteractiveMap();
-        const actionsBtn = document.getElementById('plusActionsBtn');
-        if(actionsBtn) actionsBtn.onclick = () => { document.querySelector('[data-nav="activities"]').click(); };
-        document.getElementById('scrollTopBtn')?.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-        // fadeIn observer
-        const observer = new IntersectionObserver((entries) => { entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('fade-in'); }); },{threshold:0.2});
-        document.querySelectorAll('.act-card, .stat-card, .maire-section').forEach(el=> observer.observe(el));
-    });
-    function initDarkMode(){ const btn=document.getElementById('darkModeToggle'); btn.addEventListener('click',()=>{ document.body.classList.toggle('dark'); localStorage.setItem('darkMode',document.body.classList.contains('dark')); }); if(localStorage.getItem('darkMode')==='true') document.body.classList.add('dark'); }
-    function initMobileMenu(){ const hamb=document.getElementById('hamburger'); const navMenu=document.getElementById('nav-menu'); hamb.addEventListener('click',()=>navMenu.classList.toggle('active')); document.querySelectorAll('.nav-link').forEach(l=> l.addEventListener('click',()=>navMenu.classList.remove('active'))); }
-    function initNavigation(){ const pages=['home-page','activities-page','services-page','annonces-page','contact-page']; const navs=document.querySelectorAll('[data-nav]'); function show(p){ pages.forEach(pid=>document.getElementById(pid).style.display='none'); document.getElementById(p).style.display='block'; window.scrollTo(0,0); } navs.forEach(btn=>{ btn.addEventListener('click',(e)=>{ e.preventDefault(); const t=btn.getAttribute('data-nav'); if(t==='home') show('home-page'); if(t==='activities') show('activities-page'); if(t==='services') show('services-page'); if(t==='annonces') show('annonces-page'); if(t==='contact') show('contact-page'); }); }); show('home-page'); }
-    // CARROUSEL
-    function initCarousel(){ let idx=0; const slides=document.querySelectorAll('.carousel-slide'); const total=slides.length; const slidesContainer=document.getElementById('carouselSlides'); function update(){ slidesContainer.style.transform=`translateX(-${idx*100}%)`; } document.getElementById('prevBtn').addEventListener('click',()=>{ idx=(idx-1+total)%total; update(); }); document.getElementById('nextBtn').addEventListener('click',()=>{ idx=(idx+1)%total; update(); }); setInterval(()=>{ idx=(idx+1)%total; update(); },5000); }
-    function loadActivitiesData(){ const acts=[{name:"Agriculture maraîchère",desc:"Projets d'irrigation, formation, vente groupée. Plus de 150 femmes impliquées.",img:"https://placehold.co/600x400/00853F/white?text=Maraîchage"},{name:"Élevage",desc:"Centre d'élevage caprin, distribution de médicaments vétérinaires.",img:"https://placehold.co/600x400/FFCD00/1e2a2e?text=Elevage"},{name:"Tourisme solidaire",desc:"Circuits écologiques, visites de fermes, hébergements.",img:"https://placehold.co/600x400/CE1126/white?text=Tourisme"},{name:"Pêche artisanale",desc:"Valorisation du poisson, coopérative de pêche.",img:"https://placehold.co/600x400/00853F/white?text=Pêche"}]; const grid=document.getElementById('activitiesGrid'); if(grid) grid.innerHTML=acts.map(a=>`<div class="act-card" data-detail='${JSON.stringify(a)}'><img class="act-img" src="${a.img}" loading="lazy"><div class="act-info"><h3>${a.name}</h3><p>${a.desc.substring(0,80)}...</p></div></div>`).join(''); document.querySelectorAll('#activitiesGrid .act-card').forEach(c=>{ c.addEventListener('click',()=>{ const d=JSON.parse(c.getAttribute('data-detail')); document.getElementById('modalTitle').innerText=d.name; document.getElementById('modalDesc').innerHTML=`${d.desc}<br><br>💰 Soutien de la mairie disponible.`; document.getElementById('modal').style.display='flex'; }); }); }
-    function loadServicesList(){ const servs=[{name:"État civil",desc:"Actes naissance, mariage"},{name:"Permis construire",desc:"Urbanisme"},{name:"Aide sociale",desc:"Subventions"},{name:"Santé / Poste médical",desc:"Consultations gratuites"},{name:"Éducation",desc:"Écoles et cantines"},{name:"Transport/Ambulance",desc:"Véhicule d'urgence"}]; const cont=document.getElementById('servicesList'); if(cont) cont.innerHTML=servs.map(s=>`<div class="act-card"><div class="act-info"><h3>🏛️ ${s.name}</h3><p>${s.desc}</p><button class="service-contact-btn btn-primary" style="margin-top:8px;">Demander info</button></div></div>`).join(''); document.querySelectorAll('.service-contact-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ document.querySelector('[data-nav="contact"]').click(); }); }); }
-    let annoncesData=[]; function initAnnoncesModule(){ const stored=localStorage.getItem('gandiole_annonces'); if(stored) annoncesData=JSON.parse(stored); else annoncesData=[{id:1,titre:"Forum communal le 14/05",categorie:"événement"},{id:2,titre:"Projet SantéCom subvention",categorie:"actualité"},{id:3,titre:"Appel d'offres voirie",categorie:"appel"}]; renderAnnonces(); document.getElementById('searchAnnonce').addEventListener('input',renderAnnonces); document.getElementById('filterCategorie').addEventListener('change',renderAnnonces); document.getElementById('addAnnonceBtn').addEventListener('click',()=>{ let titre=prompt("Nouvelle annonce :"); if(titre){ let cat=prompt("Catégorie (actualité, événement, appel)","actualité"); annoncesData.push({id:Date.now(),titre:titre,categorie:cat}); localStorage.setItem('gandiole_annonces',JSON.stringify(annoncesData)); renderAnnonces(); } }); } function renderAnnonces(){ const txt=document.getElementById('searchAnnonce').value.toLowerCase(); const cat=document.getElementById('filterCategorie').value; const filtered=annoncesData.filter(a=>a.titre.toLowerCase().includes(txt) && (cat==='all' || a.categorie===cat)); const container=document.getElementById('annoncesList'); if(filtered.length===0){ container.innerHTML="<p>Aucune annonce disponible.</p>"; return;} container.innerHTML=filtered.map(a=>`<div class="annonce-item"><div><strong>${a.titre}</strong> <span style="color:var(--vert-sen);">[${a.categorie}]</span></div><button class="delete-annonce" data-id="${a.id}" style="background:var(--rouge);color:white;border:none;padding:6px 15px;border-radius:30px;">Supprimer</button></div>`).join(''); document.querySelectorAll('.delete-annonce').forEach(btn=>{ btn.addEventListener('click',()=>{ const id=parseInt(btn.getAttribute('data-id')); annoncesData=annoncesData.filter(a=>a.id!==id); localStorage.setItem('gandiole_annonces',JSON.stringify(annoncesData)); renderAnnonces(); }); }); }
-    function initContactForms(){ document.getElementById('submitContact')?.addEventListener('click',()=>{ const nom=document.getElementById('contactNom').value; const email=document.getElementById('contactEmail').value; if(!nom||!email.includes('@')){ alert("Nom et email valide requis"); return; } alert(`✅ ${nom}, votre message est bien reçu !`); localStorage.setItem('lastMsg',JSON.stringify({nom,email})); }); document.getElementById('submitServiceForm')?.addEventListener('click',()=>{ const mail=document.getElementById('servEmail').value; if(!mail.includes('@')){ document.getElementById('formFeedback').innerText="Mail invalide"; return;} document.getElementById('formFeedback').innerHTML="✔️ Demande envoyée à la mairie."; setTimeout(()=> document.getElementById('formFeedback').innerHTML="",3000); }); }
-    function initInteractiveMap(){ const mapDiv=document.getElementById('interactiveMap'); const feedback=document.getElementById('map-feedback'); const points=["🌾 Zone maraîchère de Ndiébène - 250 producteurs actifs","🐟 Quai de pêche artisanale de Gandiole","🐐 Centre d'élevage de Wanar","🏨 Éco-lodge Tourisme Solidaire"]; let idx=0; mapDiv.addEventListener('click',()=>{ feedback.innerText=`📍 ${points[idx%points.length]} (cliquez pour voir les projets)`; idx++; }); }
-    document.getElementById('closeModal')?.addEventListener('click',()=> document.getElementById('modal').style.display='none'); window.onclick=(e)=>{ if(e.target===document.getElementById('modal')) document.getElementById('modal').style.display='none'; };
-</script>
 </body>
 </html>
