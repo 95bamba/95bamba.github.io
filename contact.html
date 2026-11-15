@@ -91,6 +91,266 @@
   .newsletter-input input { flex:1; padding:9px 12px; border:none; border-radius:8px 0 0 8px; font-size:12px; background:rgba(255,255,255,.1); color:var(--white); outline:none; }
   .newsletter-input button { padding:9px 14px; background:var(--gold); color:var(--white); border:none; border-radius:0 8px 8px 0; font-size:12.5px; font-weight:700; cursor:pointer; }
   .footer-bottom { border-top:1px solid rgba(255,255,255,.12); padding-top:16px; text-align:center; font-size:11.5px; color:rgba(255,255,255,.45); }
+
+  /* ============================================================
+     ===== MEDIA QUERIES — RESPONSIVE (ajoutées) =====
+     ============================================================ */
+
+  /* --- Tablette large / petit desktop --- */
+  @media (max-width: 1200px) {
+    .contact-grid {
+      gap: 16px;
+    }
+  }
+
+  /* --- Tablette --- */
+  @media (max-width: 1024px) {
+    :root {
+      --sidebar-w: 0px;
+    }
+
+    .sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      width: 240px;
+    }
+
+    .sidebar.open {
+      transform: translateX(0);
+    }
+
+    .main-wrapper {
+      margin-left: 0;
+    }
+
+    .topbar {
+      padding: 0 14px;
+      gap: 10px;
+    }
+
+    .top-nav {
+      gap: 14px;
+    }
+
+    .top-nav a {
+      font-size: 13px;
+    }
+
+    .search-box {
+      flex: 0 0 180px;
+    }
+
+    .content-area {
+      flex-direction: column;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .right-panel {
+      width: 100%;
+      padding: 0 20px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .info-box {
+      margin-bottom: 0;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  /* --- Mobile large --- */
+  @media (max-width: 768px) {
+    .topbar {
+      flex-wrap: wrap;
+      height: auto;
+      padding: 10px 14px;
+      gap: 10px;
+    }
+
+    .search-box {
+      flex: 1 1 100%;
+      order: 3;
+    }
+
+    .top-nav {
+      order: 2;
+      flex: 1 1 100%;
+      justify-content: flex-start;
+      overflow-x: auto;
+      gap: 16px;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .top-nav::-webkit-scrollbar { display: none; }
+
+    .top-nav a {
+      white-space: nowrap;
+      font-size: 13px;
+    }
+
+    .topbar-right {
+      order: 1;
+      margin-left: auto;
+    }
+
+    .page-hero {
+      height: auto;
+      min-height: 180px;
+    }
+
+    .page-hero-content {
+      padding: 20px 20px;
+    }
+
+    .page-hero h1 {
+      font-size: 26px;
+    }
+
+    .page-hero p {
+      font-size: 12.5px;
+    }
+
+    .contact-info-card,
+    .contact-form-card {
+      padding: 18px;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .main-content {
+      padding: 14px 14px 20px;
+    }
+
+    .right-panel {
+      grid-template-columns: 1fr;
+      padding: 0 14px 14px;
+      gap: 12px;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .site-footer {
+      padding: 28px 16px 16px;
+    }
+  }
+
+  /* --- Mobile --- */
+  @media (max-width: 520px) {
+    body {
+      font-size: 13px;
+    }
+
+    .topbar {
+      padding: 8px 10px;
+    }
+
+    .account-btn {
+      padding: 5px 8px;
+      font-size: 12px;
+    }
+
+    .account-icon {
+      width: 22px;
+      height: 22px;
+      font-size: 10px;
+    }
+
+    .notif-btn {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+    }
+
+    .page-hero-content {
+      padding: 16px 14px;
+    }
+
+    .page-hero h1 {
+      font-size: 22px;
+    }
+
+    .breadcrumb {
+      font-size: 11.5px;
+    }
+
+    .contact-info-card,
+    .contact-form-card {
+      padding: 16px;
+    }
+
+    .contact-info-card h2,
+    .contact-form-card h2 {
+      font-size: 17px;
+    }
+
+    .contact-item {
+      margin-bottom: 14px;
+    }
+
+    .contact-item-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 16px;
+    }
+
+    .btn-send {
+      width: 100%;
+      padding: 12px 0;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .newsletter-input {
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .newsletter-input input {
+      border-radius: 8px;
+    }
+
+    .newsletter-input button {
+      border-radius: 8px;
+      width: 100%;
+    }
+
+    .footer-bottom {
+      font-size: 10.5px;
+    }
+  }
+
+  /* --- Très petit mobile --- */
+  @media (max-width: 360px) {
+    .page-hero h1 {
+      font-size: 20px;
+    }
+
+    .contact-info-card h2,
+    .contact-form-card h2 {
+      font-size: 16px;
+    }
+
+    .info-box h2 {
+      font-size: 15px;
+    }
+  }
 </style>
 </head>
 <body>
